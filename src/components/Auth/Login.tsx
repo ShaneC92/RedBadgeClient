@@ -1,11 +1,11 @@
 import React from "react";
-
+import {Link} from "react-router-dom";
 
 type Props = {
-    props: void
+    updateToken: void
 }
 
-const Login = () =>{
+const Login :React.FC <Props> = () =>{
     return(
         <form>
             <label>email: </label>
@@ -13,6 +13,7 @@ const Login = () =>{
             <label>Password: </label>
             <input type = "password"></input>
             <button type = "submit">LOGIN</button>
+            <p>Sign me up<Link to = "/signup">SIGNUP</Link></p>
         </form>
     )
 }

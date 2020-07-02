@@ -1,10 +1,11 @@
 import React from 'react';
 import './App.css';
-
-function App() {
+import Main from "./components/Main"
+let sessionToken: string = ""
+const App: React.FunctionComponent = ()=> {
   return (
     <div className="App">
-      <h1>Movie Client</h1>
+      <Main sessionToken = {sessionToken}/>
     </div>
   );
 }

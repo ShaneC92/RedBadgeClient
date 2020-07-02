@@ -1,7 +1,7 @@
 import React from "react";
 import Auth from "./Auth/Auth";
 import {BrowserRouter as Router} from "react-router-dom";
-
+import APIURL from "./helpers/environment";
 // type SessionToken = {
 //     sessionToken: string
 // }

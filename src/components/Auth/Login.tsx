@@ -2,10 +2,10 @@ import React from "react";
 
 
 type Props = {
-    props: void
+    updateToken: void
 }
 
-const Login = () =>{
+const Login :React.FC <Props> = () =>{
     return(
         <form>
             <label>email: </label>

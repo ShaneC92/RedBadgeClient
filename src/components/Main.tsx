@@ -1,7 +1,7 @@
 import React from "react";
 import Auth from "./Auth/Auth";
 import {BrowserRouter as Router} from "react-router-dom";
-
+import APIURL from "./helpers/environment";
 // type SessionToken = {
 //     sessionToken: string
 // }
@@ -19,13 +19,13 @@ class Main extends React.Component <{},states>{
             login: "LOGIN"
         }
     }
-    componentDidMount(){
-        if(localStorage.getItem("token")){
-            this.setState({
-                sessionToken: localStorage.getItem("token")
-            })
-        }
-    }
+    // componentDidMount(){
+    //     if(localStorage.getItem("token")){
+    //         this.setState({
+    //             sessionToken: localStorage.getItem("token")
+    //         })
+    //     }
+    // }
     componentDidUpdate(){
         if(localStorage.getItem("token")){
             this.setState({

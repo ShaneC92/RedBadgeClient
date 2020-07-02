@@ -1,5 +1,8 @@
 // import React from "react";
 // import {Link} from "react-router-dom";
+//import APIURL from "../helpers/environment";
+// import React from "react";
+// import {Link} from "react-router-dom";
 // import APIURL from "../helpers/environment";
 // type props = {
 //     updateToken: void
@@ -61,36 +64,69 @@ import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import TextField from '@material-ui/core/TextField';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-import Checkbox from '@material-ui/core/Checkbox';
+//import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Link from '@material-ui/core/Link';
 import Paper from '@material-ui/core/Paper';
-import Box from '@material-ui/core/Box';
+// import Box from '@material-ui/core/Box';
 import Grid from '@material-ui/core/Grid';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
-import { makeStyles } from '@material-ui/core/styles';
+import APIURL from '../helpers/environment';
+//import { makeStyles } from '@material-ui/core/styles';
 
 type props = {
-    updateToken: void
+    updateToken: any
 }
-type state = {
+type MyVariables = {
     firstName:string,
+    setFirstName:string,
     lastName: string,
+    setLastName:string,
     email: string,
-    password: string
+    setEmail:string,
+    password: string,
+    setPassword:string
 }
 
 
-class Signup extends React.Component<props,state>{
+class Signup extends React.Component<props,MyVariables>{
     constructor(props:props){
         super(props)
         this.state ={
             firstName:"",
+            setFirstName:"",
             lastName: "",
+            setLastName:"",
             email: "",
+            setEmail:"",
             password: "",
+            setPassword:""
         }
+        //do this cuz handleSubmit is not an arrow function.
+        //this.handleSubmit = this.handleSubmit.bind(this)
+    }
+
+    handleSubmit = (e:any)=>{
+        //let myObject:any = (this); 
+        e.preventDefault();
+        // console.log("Hello");
+        // console.log(this.state.firstName);
+        //console.log(myObject.state.firstName);
+        fetch(`http://localhost:3000/user/signup`,{
+            method: "POST",
+            body:JSON.stringify({firstName:this.state.firstName,
+                                lastName: this.state.lastName,
+                                email: this.state.email,
+                                password: this.state.password}),
+            headers: new Headers({
+                "Content-Type": "application/json"
+            })
+        })
+            .then(data=>data.json())
+            .then(json=>{
+               console.log(json);
+               //this.props.updateToken(json.sessionToken)
+            })
     }
 
   render() {
@@ -104,9 +140,9 @@ class Signup extends React.Component<props,state>{
             <LockOutlinedIcon />
           </Avatar>
           <Typography component="h1" variant="h5">
-            Sign in
+            Sign Up
           </Typography>
-          <form className='form' noValidate>
+          <form className='form' noValidate onSubmit = {this.handleSubmit}>
           <TextField
               variant="outlined"
               margin="normal"
@@ -117,6 +153,11 @@ class Signup extends React.Component<props,state>{
               name="firstName"
               autoComplete="First Name"
               autoFocus
+              value = {this.state.firstName}
+              //onChange = {e=>this.setState({firstName:e.target.value})}
+              onChange = {e=>{
+                  this.setState({firstName: e.target.value})
+              }}
             />
           <TextField
               variant="outlined"
@@ -128,6 +169,8 @@ class Signup extends React.Component<props,state>{
               name="lastName"
               autoComplete="Last Name"
               autoFocus
+              value = {this.state.lastName}
+              onChange = {e=>this.setState({lastName:e.target.value})}
             />
             <TextField
               variant="outlined"
@@ -139,6 +182,8 @@ class Signup extends React.Component<props,state>{
               name="email"
               autoComplete="email"
               autoFocus
+              value = {this.state.email}
+              onChange = {e=>this.setState({email:e.target.value})}
             />
             <TextField
               variant="outlined"
@@ -149,7 +194,9 @@ class Signup extends React.Component<props,state>{
               label="Password"
               type="password"
               id="password"
-              autoComplete="current-password"
+              autoComplete="off"
+              value = {this.state.password}
+              onChange = {e=>this.setState({password:e.target.value})}
             />
             <Button
               type="submit"
@@ -158,7 +205,7 @@ class Signup extends React.Component<props,state>{
               color="primary"
               className='submit'
             >
-              Sign In
+              Sign Up
             </Button>
             <Grid container>
               <Grid item className='login'>

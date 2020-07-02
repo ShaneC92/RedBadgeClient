@@ -1,5 +1,7 @@
 import React from "react";
 import Auth from "./Auth/Auth";
+import Movie from './Home/Movie';
+import Navbar from '../components/Navbar/Navbar';
 import {BrowserRouter as Router} from "react-router-dom";
 
 // type SessionToken = {
@@ -19,26 +21,31 @@ class Main extends React.Component <{},states>{
             login: "LOGIN"
         }
     }
-    componentDidMount(){
-        if(localStorage.getItem("token")){
-            this.setState({
-                sessionToken: localStorage.getItem("token")
-            })
-        }
-    }
-    componentDidUpdate(){
-        if(localStorage.getItem("token")){
-            this.setState({
-                sessionToken: localStorage.getItem("token")
-            })
-        }
-    }
+    // componentDidMount(){
+    //     if(localStorage.getItem("token")){
+    //         this.setState({
+    //             sessionToken: localStorage.getItem("token")
+    //         })
+    //     }
+    // }
+    // componentDidUpdate(){
+    //     if(localStorage.getItem("token")){
+    //         this.setState({
+    //             sessionToken: localStorage.getItem("token")
+    //         })
+    //     }
+    // }
     //updating a sessionToken
-    updateToken(newToken:string){
-        localStorage.setItem("token",newToken);
+    updateToken = (sessionToken:string)=>{
+        localStorage.setItem("token",sessionToken);
         this.setState({
-            sessionToken: newToken
+            sessionToken: sessionToken
         })
+    }
+
+    clearToken = (e:any) => {
+        localStorage.clear();
+        this.setState({sessionToken: ('')});
     }
 
     updateLog = (log:string)=>{
@@ -46,10 +53,10 @@ class Main extends React.Component <{},states>{
             login:log
         })
     }
-    updateView(){
+    updateView = ()=>{
         if(this.state.sessionToken === localStorage.getItem("token")){
             return(
-                <h1>Profile</h1>
+                <Movie token={this.state.sessionToken} />
             )
         }
         else{
@@ -64,8 +71,8 @@ class Main extends React.Component <{},states>{
         return(
             <div>
                 <Router>
-
-                     {this.updateView()}
+                    <Navbar clearToken={this.clearToken} />
+                    {this.updateView()}
                 </Router>
             </div>
         )

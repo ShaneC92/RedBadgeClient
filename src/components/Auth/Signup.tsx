@@ -1,15 +1,14 @@
 import React from "react";
 import {Link} from "react-router-dom";
-
+import APIURL from "../helpers/environment";
 type props = {
     updateToken: void
 }
 type state = {
-    firstName:String,
-            lastName: String,
-            email: String,
-            password: String,
-            login: true
+    firstName:string,
+    lastName: string,
+    email: string,
+    password: string
 }
 class Signup extends React.Component<props,state>{
     constructor(props:props){
@@ -19,16 +18,33 @@ class Signup extends React.Component<props,state>{
             lastName: "",
             email: "",
             password: "",
-            login: true
         }
+    }
+    handleSubmit(e:any){
+        e.preventDefault();
+        
     }
     render(){
         return(
-            <form>
+            <form onSubmit = {this.handleSubmit}>
+                <label>First Name: </label>
+                <input type = "text" value = {this.state.firstName} onChange = {e=>this.setState({
+                    firstName: e.target.value
+                })}/><br/>
+
+                <label>Last Name: </label>
+                <input type = "text" value = {this.state.lastName} onChange = {e=>this.setState({
+                    lastName: e.target.value
+                })}/><br/>
+
                 <label>email: </label>
-                <input type = "email"></input><br/>
+                <input type = "email" value = {this.state.email} onChange = {e=>this.setState({
+                    email: e.target.value
+                })}/><br/>
+
                 <label>Password: </label>
-                <input type = "password"></input>
+                <input type = "password" value = {this.state.password} onChange = {e=>this.setState({password:e.target.value})}/>
+                <br/>
                 <button type = "submit">SIGNUP</button>
                 <p>Already have an account <Link to = "/login">Log In</Link></p>
             </form>

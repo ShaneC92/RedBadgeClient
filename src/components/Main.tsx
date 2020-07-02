@@ -19,13 +19,13 @@ class Main extends React.Component <{},states>{
             login: "LOGIN"
         }
     }
-    componentDidMount(){
-        if(localStorage.getItem("token")){
-            this.setState({
-                sessionToken: localStorage.getItem("token")
-            })
-        }
-    }
+    // componentDidMount(){
+    //     if(localStorage.getItem("token")){
+    //         this.setState({
+    //             sessionToken: localStorage.getItem("token")
+    //         })
+    //     }
+    // }
     componentDidUpdate(){
         if(localStorage.getItem("token")){
             this.setState({

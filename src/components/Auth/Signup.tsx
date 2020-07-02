@@ -1,6 +1,6 @@
 import React from "react";
 import {Link} from "react-router-dom";
-import APIURL from "../helpers/environment";
+//import APIURL from "../helpers/environment";
 type props = {
     updateToken: void
 }

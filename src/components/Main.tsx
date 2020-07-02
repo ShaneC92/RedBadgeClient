@@ -26,18 +26,18 @@ class Main extends React.Component <{},states>{
     //         })
     //     }
     // }
-    componentDidUpdate(){
-        if(localStorage.getItem("token")){
-            this.setState({
-                sessionToken: localStorage.getItem("token")
-            })
-        }
-    }
+    // componentDidUpdate(){
+    //     if(localStorage.getItem("token")){
+    //         this.setState({
+    //             sessionToken: localStorage.getItem("token")
+    //         })
+    //     }
+    // }
     //updating a sessionToken
-    updateToken(newToken:string){
-        localStorage.setItem("token",newToken);
+    updateToken = (sessionToken:string)=>{
+        localStorage.setItem("token",sessionToken);
         this.setState({
-            sessionToken: newToken
+            sessionToken: sessionToken
         })
     }
 
@@ -46,7 +46,7 @@ class Main extends React.Component <{},states>{
             login:log
         })
     }
-    updateView(){
+    updateView = ()=>{
         if(this.state.sessionToken === localStorage.getItem("token")){
             return(
                 <h1>Profile</h1>
@@ -64,7 +64,6 @@ class Main extends React.Component <{},states>{
         return(
             <div>
                 <Router>
-
                      {this.updateView()}
                 </Router>
             </div>

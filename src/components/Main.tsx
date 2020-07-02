@@ -2,6 +2,7 @@ import React from "react";
 import Auth from "./Auth/Auth";
 import {BrowserRouter as Router} from "react-router-dom";
 import APIURL from "./helpers/environment";
+import Home from "./Home/Movie";
 // type SessionToken = {
 //     sessionToken: string
 // }
@@ -49,7 +50,7 @@ class Main extends React.Component <{},states>{
     updateView = ()=>{
         if(this.state.sessionToken === localStorage.getItem("token")){
             return(
-                <h1>Profile</h1>
+                <Home/>
             )
         }
         else{

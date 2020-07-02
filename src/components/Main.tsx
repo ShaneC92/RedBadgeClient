@@ -1,32 +1,35 @@
 import React from "react";
 import Auth from "./Auth/Auth";
+import {BrowserRouter as Router} from "react-router-dom";
 
+// type SessionToken = {
+//     sessionToken: string
+// }
+type states = {
+    sessionToken: any,
+    login: string
 
-type SessionToken = {
-    sessionToken: string
 }
-type token = {
-    token: any;
-}
 
-class Main extends React.Component<SessionToken,token>{
-    constructor(props:SessionToken){
+class Main extends React.Component <{},states>{
+    constructor(props:states){
         super(props)
         this.state = {
-            token: ""
+            sessionToken: "",
+            login: "LOGIN"
         }
     }
     componentDidMount(){
         if(localStorage.getItem("token")){
             this.setState({
-                token: localStorage.getItem("token")
+                sessionToken: localStorage.getItem("token")
             })
         }
     }
     componentDidUpdate(){
         if(localStorage.getItem("token")){
             this.setState({
-                token: localStorage.getItem("token")
+                sessionToken: localStorage.getItem("token")
             })
         }
     }
@@ -34,23 +37,37 @@ class Main extends React.Component<SessionToken,token>{
     updateToken(newToken:string){
         localStorage.setItem("token",newToken);
         this.setState({
-            token: newToken
+            sessionToken: newToken
         })
     }
-    // updateView(){
-    //     if(this.state.token === localStorage.getItem("token")){
-    //         return(
-    //             <HomePage token = {this.state.token}/>
-    //         )
-    //     }
-    //     else{
-    //         <Signup updateToken = {this.updateToken}/>
-    //     }
-    // }
+
+    updateLog = (log:string)=>{
+        this.setState({
+            login:log
+        })
+    }
+    updateView(){
+        if(this.state.sessionToken === localStorage.getItem("token")){
+            return(
+                <h1>Profile</h1>
+            )
+        }
+        else{
+            return(
+
+                <Auth updateToken = {this.updateToken} token = {this.state.sessionToken} updateLog = {this.updateLog}/>
+            )
+        }
+    }
 
     render(){
         return(
-            <Auth updateToken = {this.updateToken} token = {this.state.token}/>
+            <div>
+                <Router>
+
+                     {this.updateView()}
+                </Router>
+            </div>
         )
     }
 }

@@ -37,8 +37,8 @@ class Auth extends React.Component <updateToken,Arguments>{
             <Signup />
             );
     };
-    loginToggle = () => {
-        //event.preventDefault();
+    loginToggle = (event: any) => {
+        event.preventDefault();
         this.setState({
             firstName:"",
             lastName: "",

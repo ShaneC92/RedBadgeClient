@@ -81,9 +81,9 @@ type Props =  {
 const Auth: React.FC<Props> = (props:Props)=>{
     return(
         <Switch>
-            <Route exact path = "/"><Signup updateToken = {props.updateToken}/></Route>
-            <Route exact path = "/signup"><Signup updateToken = {props.updateToken}/></Route>
-            <Route exact path = "/login"><Login updateToken = {props.updateToken}/></Route>
+            <Route exact path = "/"><Signup updateToken = {props.updateToken} updateLog = {props.updateLog}/></Route>
+            <Route exact path = "/signup"><Signup updateToken = {props.updateToken} updateLog = {props.updateLog}/></Route>
+            <Route exact path = "/login"><Login updateToken = {props.updateToken} updateLog = {props.updateLog}/></Route>
         </Switch>
     )
 }

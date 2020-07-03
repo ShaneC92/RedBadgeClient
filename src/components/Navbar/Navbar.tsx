@@ -14,9 +14,7 @@ class Navbar extends React.Component<clearToken> {
     constructor(props: clearToken){
         super(props)
     }
-
     
-    // history = useHistory();
 
 
     render() {

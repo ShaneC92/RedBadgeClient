@@ -12,10 +12,7 @@
     "@types/node": "^12.12.47",
     "@types/react": "^16.9.41",
     "@types/react-dom": "^16.9.8",
-<<<<<<< HEAD
-=======
     "@types/react-router": "^5.1.8",
->>>>>>> bd1e0f936a0f438df8bbb2dd10260b4f9311e0dd
     "@types/react-router-dom": "^5.1.5",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",

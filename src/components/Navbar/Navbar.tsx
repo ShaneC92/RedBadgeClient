@@ -1,12 +1,28 @@
 import React from 'react';
 import './Navbar.css';
+import {useHistory} from 'react-router-dom';
 
-class Navbar extends React.Component {
+type logOut = {
+    logOut: any,
+    setLogout: any
+}
+type clearToken = {
+    clearToken: any
+}
+
+class Navbar extends React.Component<clearToken> {
+    constructor(props: clearToken){
+        super(props)
+    }
+
+    
+    // history = useHistory();
+
 
     render() {
         return(
-            <div>
-                <h1>Navbar</h1>
+            <div>    
+                <button onClick={this.props.clearToken}>Logout</button>     
             </div>
         )
     }

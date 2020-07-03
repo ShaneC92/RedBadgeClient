@@ -37,7 +37,8 @@ import APIURL from '../helpers/environment';
 //import { makeStyles } from '@material-ui/core/styles';
 
 type props = {
-    updateToken: any
+    updateToken: any,
+    updateLog:any
 }
 type MyVariables = {
     email: string,
@@ -56,7 +57,7 @@ class Login extends React.Component<props,MyVariables>{
             password: "",
             setPassword:""
         }
-        //do this cuz handleSubmit is not an arrow function.
+        //do this if handleSubmit is not an arrow function.
         //this.handleSubmit = this.handleSubmit.bind(this)
     }
 
@@ -77,14 +78,19 @@ class Login extends React.Component<props,MyVariables>{
         })
             .then(data=>data.json())
             .then(json=>{
-                console.log("Hello world");
+                
                 // console.log(json);
             //    console.log(json.sessionToken);
                this.props.updateToken(json.sessionToken)
+               json.sessionToken?this.props.updateLog("LOGOUT"):this.props.updateLog("LOGIN");
                //this.props.updateToken(json.data.sessionToken);
             })
     }
-
+    componentDidMount=()=>{
+      // const dom: any = document.getElementsByClassName("image")[0];
+      // dom.style.backgroundImage = "url('https://source.unsplash.com/collection/10534533')"
+      this.props.updateLog("SIGNUP");
+  }
   render() {
   return (
     <Grid container component="main" className='root'>
@@ -136,8 +142,9 @@ class Login extends React.Component<props,MyVariables>{
             </Button>
             <Grid container>
               <Grid item className='login'>
+                <span style = {{color:"black"}}> Don't have an account? </span>
                 <Link href="signup" variant="body2">
-                  {"Don't have an account? Signup"}
+                {"Signup"}
                 </Link>
               </Grid>
             </Grid>

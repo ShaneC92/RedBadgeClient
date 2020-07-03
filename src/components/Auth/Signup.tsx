@@ -75,17 +75,18 @@ import APIURL from '../helpers/environment';
 //import { makeStyles } from '@material-ui/core/styles';
 
 type props = {
-    updateToken: any
+    updateToken: any,
+    updateLog:any
 }
 type MyVariables = {
     firstName:string,
-    setFirstName:string,
+    message1:string,
     lastName: string,
-    setLastName:string,
+    message2:string,
     email: string,
-    setEmail:string,
+    message3:string,
     password: string,
-    setPassword:string
+    message4:string
 }
 
 
@@ -94,13 +95,13 @@ class Signup extends React.Component<props,MyVariables>{
         super(props)
         this.state ={
             firstName:"",
-            setFirstName:"",
+            message1:"",
             lastName: "",
-            setLastName:"",
+            message2:"",
             email: "",
-            setEmail:"",
+            message3:"",
             password: "",
-            setPassword:""
+            message4:""
         }
         //do this cuz handleSubmit is not an arrow function.
         //this.handleSubmit = this.handleSubmit.bind(this)
@@ -109,29 +110,53 @@ class Signup extends React.Component<props,MyVariables>{
     handleSubmit = (e:any)=>{
         //let myObject:any = (this); 
         e.preventDefault();
-        // console.log("Hello");
-        // console.log(this.state.firstName);
-        //console.log(myObject.state.firstName);
-        fetch(`http://localhost:3000/user/signup`,{
-            method: "POST",
-            body:JSON.stringify({firstName:this.state.firstName,
-                                lastName: this.state.lastName,
-                                email: this.state.email,
-                                password: this.state.password}),
-            headers: new Headers({
-                "Content-Type": "application/json"
-            })
-        })
-            .then(data=>data.json())
-            .then(json=>{
-                console.log("Hello world");
-                console.log(json);
-               console.log(json.sessionToken);
-               this.props.updateToken(json.sessionToken)
-               //this.props.updateToken(json.data.sessionToken);
-            })
+        if(!this.state.firstName){
+            this.setState({message1:"Please put your first name!"});
+        }
+        else{
+            this.setState({message1:""});
+            if(!this.state.lastName){
+                this.setState({message2:"Please put your last name!"});
+            }
+            else{
+                this.setState({message2:""})
+                if(!this.state.email){
+                    this.setState({message3:"Please put your email!"});
+            }
+                else{
+                    this.setState({message3:""});
+                    if(!this.state.password){
+                        this.setState({message4:"Please put your password!"});
+            }
+                    else{
+                        this.setState({message4:""});
+                        fetch(`http://localhost:3000/user/signup`,{
+                                method: "POST",
+                                body:JSON.stringify({firstName:this.state.firstName,
+                                                    lastName: this.state.lastName,
+                                                    email: this.state.email,
+                                                    password: this.state.password}),
+                                headers: new Headers({
+                                    "Content-Type": "application/json"
+                                })
+                            })
+                                .then(data=>data.json())
+                                .then(json=>{
+                                //     console.log("Hello world");
+                                //     console.log(json);
+                                //    console.log(json.sessionToken);
+                                this.props.updateToken(json.sessionToken)
+                                this.props.updateLog("LOGOUT");
+                                //this.props.updateToken(json.data.sessionToken);
+                                })
+                    }
+                }
+        }
     }
-
+    }
+    componentDidMount = ()=>{
+        this.props.updateLog("LOGIN");
+    }
   render() {
   return (
     <Grid container component="main" className='root'>
@@ -162,6 +187,7 @@ class Signup extends React.Component<props,MyVariables>{
                   this.setState({firstName: e.target.value})
               }}
             />
+            {this.state.message1}<br/>
           <TextField
               variant="outlined"
               margin="normal"
@@ -175,6 +201,7 @@ class Signup extends React.Component<props,MyVariables>{
               value = {this.state.lastName}
               onChange = {e=>this.setState({lastName:e.target.value})}
             />
+            {this.state.message2}<br/>
             <TextField
               variant="outlined"
               margin="normal"
@@ -188,6 +215,7 @@ class Signup extends React.Component<props,MyVariables>{
               value = {this.state.email}
               onChange = {e=>this.setState({email:e.target.value})}
             />
+            {this.state.message3}<br/>
             <TextField
               variant="outlined"
               margin="normal"
@@ -201,6 +229,7 @@ class Signup extends React.Component<props,MyVariables>{
               value = {this.state.password}
               onChange = {e=>this.setState({password:e.target.value})}
             />
+            {this.state.message4}<br/>
             <Button
               type="submit"
               fullWidth
@@ -212,8 +241,9 @@ class Signup extends React.Component<props,MyVariables>{
             </Button>
             <Grid container>
               <Grid item className='login'>
+                <span style = {{color:"black"}}> Already have an account? </span>
                 <Link href="login" variant="body2">
-                  {"Already have an account? Login"}
+                {"Login"}
                 </Link>
               </Grid>
             </Grid>

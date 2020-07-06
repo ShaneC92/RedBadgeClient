@@ -26,14 +26,12 @@ import MenuIcon from '@material-ui/icons/Menu';
 //     // history = useHistory();
 
 
-<<<<<<< HEAD
     render() {
         return(
             <div>    
                 <button onClick={this.props.clearToken}>Logout</button>     
             </div>
         )
-=======
 //     render() {
 //         return(
 //             <div>
@@ -45,7 +43,6 @@ import MenuIcon from '@material-ui/icons/Menu';
 type clearToken = {
         clearToken: any,
         log:string
->>>>>>> dc5bbc6584e786435c6c9586a621122dcf3d2f22
     }
 
     const useStyles = makeStyles((theme) => ({

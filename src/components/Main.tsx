@@ -12,7 +12,6 @@ import Home from "./Home/Movie";
 type states = {
     sessionToken: any,
     login: string
-
 }
 
 class Main extends React.Component <{},states>{

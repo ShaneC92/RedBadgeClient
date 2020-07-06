@@ -92,8 +92,3 @@ const useStyles = makeStyles({
     }
 
 export default Movie;
-
-
-// `https://api.themoviedb.org/4/list/1?page=1&api_key=20efcae6ae818a4f9c50669db7afbb8a`
-
-//https://api.themoviedb.org/3/search/movie?api_key=<APIKEY>&query=<keyword>

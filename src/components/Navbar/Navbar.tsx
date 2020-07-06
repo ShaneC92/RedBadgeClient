@@ -17,21 +17,6 @@ import MenuIcon from '@material-ui/icons/Menu';
 //     log:string
 // }
 
-<<<<<<< HEAD
-type logOut = {
-    logOut: any,
-    setLogout: any
-}
-type clearToken = {
-    clearToken: any
-}
-
-class Navbar extends React.Component<clearToken> {
-    constructor(props: clearToken){
-        super(props)
-    }
-    
-=======
 // class Navbar extends React.Component<clearToken> {
 //     constructor(props: clearToken){
 //         super(props)
@@ -39,7 +24,6 @@ class Navbar extends React.Component<clearToken> {
 
     
 //     // history = useHistory();
->>>>>>> dc5bbc6584e786435c6c9586a621122dcf3d2f22
 
 
 //     render() {

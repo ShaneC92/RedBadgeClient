@@ -1,7 +1,13 @@
 import React from 'react';
 import './favMovie.css';
+import { generateKeyPair } from 'crypto';
 
-class favMovie extends React.Component {
+type token = {
+    token: any
+}
+
+class favMovie extends React.Component<token> {
+
 
     render() {
         return(

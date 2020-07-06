@@ -5,13 +5,21 @@ import Navbar from '../components/Navbar/Navbar';
 import {BrowserRouter as Router} from "react-router-dom";
 import APIURL from "./helpers/environment";
 import Home from "./Home/Movie";
+import Admin from "./Admin/Admin";
 
 // type SessionToken = {
 //     sessionToken: string
 // }
 type states = {
     sessionToken: any,
+<<<<<<< HEAD
     login: string
+=======
+    login: string,
+    role:string,
+    firstName:string
+
+>>>>>>> dd9dbb00bf9c1c4dd56face3fcc249a9efc7fbea
 }
 
 class Main extends React.Component <{},states>{
@@ -19,7 +27,9 @@ class Main extends React.Component <{},states>{
         super(props)
         this.state = {
             sessionToken: "",
-            login: "LOGIN"
+            login: "LOGIN",
+            role:"",
+            firstName:"HOME"
         }
     }
     // componentDidMount(){
@@ -37,17 +47,20 @@ class Main extends React.Component <{},states>{
     //     }
     // }
     //updating a sessionToken
-    updateToken = (sessionToken:string)=>{
+    updateToken = (sessionToken:string,role:string,firstName:string)=>{
         localStorage.setItem("token",sessionToken);
         this.setState({
-            sessionToken: sessionToken
+            sessionToken: sessionToken,
+            role:role,
+            firstName:firstName
         })
     }
 
     clearToken = (e:any) => {
         localStorage.clear();
         this.setState({sessionToken: ('')});
-        this.setState({login:"LOGIN"})
+        this.setState({login:"LOGIN"});
+        this.setState({firstName:"HOME"});
     }
 
     updateLog = (log:string)=>{
@@ -57,10 +70,18 @@ class Main extends React.Component <{},states>{
     }
     updateView = ()=>{
         if(this.state.sessionToken === localStorage.getItem("token")){
-            return(
+            if(this.state.role === "User"){
 
-                <Movie token={this.state.sessionToken} />
-            )
+                return(
+    
+                    <Movie token={this.state.sessionToken} user = {this.state.role} />
+                )
+            }
+            else{
+                return(
+                    <Admin token = {this.state.sessionToken}/>
+                )
+            }
         }
         else{
             return(
@@ -74,7 +95,7 @@ class Main extends React.Component <{},states>{
         return(
             <div>
                 <Router>
-                    <Navbar clearToken={this.clearToken} log = {this.state.login} />
+                    <Navbar clearToken={this.clearToken} log = {this.state.login} username = {this.state.firstName} />
                     {this.updateView()}
                 </Router>
             </div>

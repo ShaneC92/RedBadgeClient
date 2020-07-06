@@ -78,10 +78,8 @@ class Login extends React.Component<props,MyVariables>{
         })
             .then(data=>data.json())
             .then(json=>{
-                
-                // console.log(json);
-            //    console.log(json.sessionToken);
-               this.props.updateToken(json.sessionToken)
+              console.log(json);
+               this.props.updateToken(json.sessionToken,json.user.userRole,json.user.firstName);
                json.sessionToken?this.props.updateLog("LOGOUT"):this.props.updateLog("LOGIN");
                //this.props.updateToken(json.data.sessionToken);
             })

@@ -7,7 +7,10 @@ import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 import IconButton from '@material-ui/core/IconButton';
-import MenuIcon from '@material-ui/icons/Menu';
+import Menu from '@material-ui/core/Menu';
+import MenuItem from '@material-ui/core/MenuItem';
+
+
 // type logOut = {
 //     logOut: any,
 //     setLogout: any
@@ -36,7 +39,8 @@ import MenuIcon from '@material-ui/icons/Menu';
 // }
 type clearToken = {
         clearToken: any,
-        log:string
+        log:string,
+        username:string
     }
 
     const useStyles = makeStyles((theme) => ({
@@ -60,7 +64,28 @@ type clearToken = {
       }));
       
 const Navbar: React.FC<clearToken> = (props:clearToken)=>{
+  const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
     const classes = useStyles();
+    const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
+      setAnchorEl(event.currentTarget);
+    };
+    const handleClose = () => {
+      if(props.username === "HOME"){
+        alert("You must log in first");
+      }
+      else{
+        return(
+          <Link to = "/favorites"/>
+        )
+      }
+      setAnchorEl(null);
+    };
+    const handleClose1 = () => {
+      if(props.username === "HOME"){
+        alert("You must log in first");
+      }
+      setAnchorEl(null);
+    };
     const logChange = ()=>{
         if(props.log === "LOGIN"){
             return(
@@ -85,7 +110,19 @@ const Navbar: React.FC<clearToken> = (props:clearToken)=>{
                 <Toolbar>
                   <Typography variant="h6" className={classes.title}>
                   <IconButton edge="start" className={classes.bttn} color="inherit" aria-label="menu">
-                    <span>Movie</span>
+                  <Button aria-controls="simple-menu" aria-haspopup="true" onClick={handleClick}>
+                      {props.username}
+                  </Button>
+                  <Menu
+                    id="simple-menu"
+                    anchorEl={anchorEl}
+                    keepMounted
+                    open={Boolean(anchorEl)}
+                    onClose={handleClose}
+                  >
+                    <MenuItem onClick={handleClose}>Profile</MenuItem>
+                    <MenuItem onClick={handleClose1}>Home</MenuItem>
+                  </Menu>
                   </IconButton>
                   </Typography>
                   <Button color="inherit">{logChange()}</Button>

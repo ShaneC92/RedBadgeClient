@@ -3,6 +3,8 @@ import Auth from "./Auth/Auth";
 import Movie from './Home/Movie';
 import Navbar from '../components/Navbar/Navbar';
 import {BrowserRouter as Router} from "react-router-dom";
+import APIURL from "./helpers/environment";
+import Home from "./Home/Movie";
 
 // type SessionToken = {
 //     sessionToken: string
@@ -46,6 +48,7 @@ class Main extends React.Component <{},states>{
     clearToken = (e:any) => {
         localStorage.clear();
         this.setState({sessionToken: ('')});
+        this.setState({login:"LOGIN"})
     }
 
     updateLog = (log:string)=>{
@@ -56,6 +59,7 @@ class Main extends React.Component <{},states>{
     updateView = ()=>{
         if(this.state.sessionToken === localStorage.getItem("token")){
             return(
+
                 <Movie token={this.state.sessionToken} />
             )
         }
@@ -71,7 +75,7 @@ class Main extends React.Component <{},states>{
         return(
             <div>
                 <Router>
-                    <Navbar clearToken={this.clearToken} />
+                    <Navbar clearToken={this.clearToken} log = {this.state.login} />
                     {this.updateView()}
                 </Router>
             </div>

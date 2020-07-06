@@ -86,7 +86,8 @@ type MyVariables = {
     email: string,
     message3:string,
     password: string,
-    message4:string
+    message4:string,
+    userRole:string
 }
 
 
@@ -101,7 +102,8 @@ class Signup extends React.Component<props,MyVariables>{
             email: "",
             message3:"",
             password: "",
-            message4:""
+            message4:"",
+            userRole:"User"
         }
         //do this cuz handleSubmit is not an arrow function.
         //this.handleSubmit = this.handleSubmit.bind(this)
@@ -142,10 +144,8 @@ class Signup extends React.Component<props,MyVariables>{
                             })
                                 .then(data=>data.json())
                                 .then(json=>{
-                                //     console.log("Hello world");
-                                //     console.log(json);
-                                //    console.log(json.sessionToken);
-                                this.props.updateToken(json.sessionToken)
+                                console.log(json);
+                                this.props.updateToken(json.sessionToken,this.state.userRole,json.data.firstName);
                                 this.props.updateLog("LOGOUT");
                                 //this.props.updateToken(json.data.sessionToken);
                                 })

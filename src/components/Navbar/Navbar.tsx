@@ -104,6 +104,46 @@ const Navbar: React.FC<clearToken> = (props:clearToken)=>{
             )
         }
     }
+    const favorite = ()=>{
+      if(props.username === "HOME"){
+        const clickMe = ()=>{
+          alert("You must log in first");
+          setAnchorEl(null);
+        }
+        return(
+          <MenuItem onClick={clickMe}>Favorites</MenuItem>
+        )
+      }
+      else{
+        //setAnchorEl(null);
+        const clickMe = () =>{
+          setAnchorEl(null);
+        }
+        return(
+          <Link to = "/favorites"><MenuItem onClick = {clickMe}>Favorites</MenuItem></Link>
+        )
+      }
+    }
+    const home = () =>{
+      if(props.username === "HOME"){
+        const clickMe = ()=>{
+          alert("You must log in first");
+          setAnchorEl(null);
+        }
+        return(
+          <MenuItem onClick={clickMe}>Home</MenuItem>
+        )
+      }
+      else{
+        //setAnchorEl(null);
+        const clickMe = () =>{
+          setAnchorEl(null);
+        }
+        return(
+          <Link to = "/movie"><MenuItem onClick = {clickMe}>Home</MenuItem></Link>
+        )
+      }
+    }
     return(
             <div className={classes.root}>
               <AppBar position="static">
@@ -120,8 +160,8 @@ const Navbar: React.FC<clearToken> = (props:clearToken)=>{
                     open={Boolean(anchorEl)}
                     onClose={handleClose}
                   >
-                    <MenuItem onClick={handleClose}>Profile</MenuItem>
-                    <MenuItem onClick={handleClose1}>Home</MenuItem>
+                    {home()}
+                   {favorite()}
                   </Menu>
                   </IconButton>
                   </Typography>

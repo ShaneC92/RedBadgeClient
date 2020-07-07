@@ -3,12 +3,14 @@ import React from "react";
 type Token = {
     token: any,
     myMovie:any,
-    fetchMovies:any
+    fetchMovies:any,
+    weekly:any
 }
 
 class MovieTable extends React.Component<Token,{}>{
         
         movieList: any = () =>{
+            console.log(this.props.weekly);
             let condition = this.props.myMovie;
             const deleteMovie = (movieID:number)=>{
                 fetch(`http://localhost:3000/favorites/${movieID}`,{
@@ -55,7 +57,6 @@ class MovieTable extends React.Component<Token,{}>{
                 </thead>
                 <tbody>
                     {this.movieList()}
-                    {this.props.fetchMovies()}
                 </tbody>
             </table>
         )

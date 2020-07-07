@@ -1,28 +1,32 @@
 import React from 'react';
 import './Movie.css';
-// import { makeStyles } from '@material-ui/core/styles';
-// import Card from '@material-ui/core/Card';
-// import CardActionArea from '@material-ui/core/CardActionArea';
-// import CardActions from '@material-ui/core/CardActions';
-// import CardContent from '@material-ui/core/CardContent';
-// import CardMedia from '@material-ui/core/CardMedia';
-// import Button from '@material-ui/core/Button';
-// import Typography from '@material-ui/core/Typography';
+import { makeStyles } from '@material-ui/core/styles';
+import Card from '@material-ui/core/Card';
+import CardActionArea from '@material-ui/core/CardActionArea';
+import CardActions from '@material-ui/core/CardActions';
+import CardContent from '@material-ui/core/CardContent';
+import CardMedia from '@material-ui/core/CardMedia';
+import Button from '@material-ui/core/Button';
+import Typography from '@material-ui/core/Typography';
+import {Switch,Route} from "react-router-dom";
 import MovieTable from "../Movie/MovieTable";
-// import APIURL from '../helpers/environment';
+import FavoriteTable from "../Favorites/favMovie";
+import APIURL from '../helpers/environment';
 
 type Token = {
     token: any,
     user:string
 }
 type stateVariable = {
-    movieList: any
+    movieList: any,
+    favoriteMovieList: any
 }
   class Movie extends React.Component<Token,stateVariable>{
       constructor(props:Token){
           super(props);
           this.state = {
-              movieList: {}
+              movieList: {},
+              favoriteMovieList: {}
           }
       }
       componentDidMount = ()=>{
@@ -39,14 +43,20 @@ type stateVariable = {
           .then(json=>{
               this.setState({
                   movieList: json
-              })
+              });
+              //fetch from favorite end point
           })
       }
            
         render(){
 
             return(
-                <MovieTable token = {this.props.token} role = {this.props.user} myMovie = {this.state.movieList}/>
+        <Switch>
+            <Route exact path = "/login"><MovieTable token = {this.props.token} role = {this.props.user} myMovie = {this.state.movieList}/></Route>
+            <Route exact path = "/movie"><MovieTable token = {this.props.token} role = {this.props.user} myMovie = {this.state.movieList}/></Route>
+            <Route exact path = "/favorites"><FavoriteTable token = {this.props.token}
+             role = {this.props.user}/></Route>
+        </Switch>
             )
         }
     }

@@ -12,14 +12,10 @@ import Admin from "./Admin/Admin";
 // }
 type states = {
     sessionToken: any,
-<<<<<<< HEAD
-    login: string
-=======
     login: string,
     role:string,
     firstName:string
 
->>>>>>> dd9dbb00bf9c1c4dd56face3fcc249a9efc7fbea
 }
 
 class Main extends React.Component <{},states>{

@@ -71,14 +71,14 @@ const Navbar: React.FC<clearToken> = (props:clearToken)=>{
     };
     const handleClose = () => {
       if(props.username === "HOME"){
-        alert("You must log in first");
+        setAnchorEl(null)
       }
       else{
         return(
-          <Link to = "/favorites"/>
+            <Link to = "/favorites" /> && setAnchorEl(null)
         )
       }
-      setAnchorEl(null);
+      
     };
     const handleClose1 = () => {
       if(props.username === "HOME"){

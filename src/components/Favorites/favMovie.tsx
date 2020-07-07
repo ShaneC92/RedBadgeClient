@@ -1,6 +1,5 @@
 import React from 'react';
 import './favMovie.css';
-import { generateKeyPair } from 'crypto';
 
 type token = {
     token: any

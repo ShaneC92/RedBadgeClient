@@ -3,7 +3,8 @@ import './favMovie.css';
 import FavTable from "./Favtable";
 type Token = {
     token: any,
-    role:string
+    role:string,
+    weekly:any
 }
 type myMovie = {
     myMovie: any
@@ -37,7 +38,7 @@ class favMovie extends React.Component <Token,myMovie> {
 
     render(){
         return(
-            <FavTable token = {this.props.token} myMovie = {this.state.myMovie} fetchMovies = {this.fetchMovies}/>
+            <FavTable token = {this.props.token} myMovie = {this.state.myMovie} fetchMovies = {this.fetchMovies} weekly = {this.props.weekly}/>
         )
     }
 }

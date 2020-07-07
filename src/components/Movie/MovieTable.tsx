@@ -1,12 +1,17 @@
 import React from "react";
+import "../Home/Movie.css";
 
 type Token = {
     token: any,
+    weekly:any,
     myMovie:any,
     role:string
 }
-
 class MovieTable extends React.Component<Token,{}>{
+    weeklyList:any = () =>{
+        let condition = this.props.weekly;
+        console.log("Weekly",condition);
+    }
     movieList:any = () =>{
         let condition = this.props.myMovie;
 
@@ -96,20 +101,39 @@ class MovieTable extends React.Component<Token,{}>{
     }
     render(){
         return(
-            <table style = {{width: "40%",margin:"auto"}}>
+            <div className = "movie">
+
+                <table style = {{width: "40%"}}>
+                <caption><h1>List of Movies</h1></caption>
+                    <thead>
+                        <th>Poster</th>
+                        <th>Movie Title</th>
+                        <th>Genre</th>
+                        <th>Popularity</th>
+                        <th>release Date</th>
+                        <th>Run Time</th>
+                        <th>Description</th>
+                    </thead>
+                    <tbody>
+                        {this.movieList()}
+                    </tbody>
+                </table>
+                <table style = {{width:"40%"}}>
+                <caption><h1>Weekly</h1></caption>
                 <thead>
-                    <th>Poster</th>
-                    <th>Movie Title</th>
-                    <th>Genre</th>
-                    <th>Popularity</th>
-                    <th>release Date</th>
-                    <th>Run Time</th>
-                    <th>Description</th>
-                </thead>
-                <tbody>
-                    {this.movieList()}
-                </tbody>
-            </table>
+                        <th>Poster</th>
+                        <th>Movie Title</th>
+                        <th>Genre</th>
+                        <th>Popularity</th>
+                        <th>release Date</th>
+                        <th>Run Time</th>
+                        <th>Description</th>
+                    </thead>
+                    <tbody>
+                        {this.weeklyList()}
+                    </tbody>
+                </table>
+            </div>
         )
     }
 }

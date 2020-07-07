@@ -31,9 +31,6 @@ class favMovie extends React.Component <Token,myMovie> {
                   })
               })
     }
-    componentDidMount = () =>{
-        this.fetchMovies();
-    }
 
     render(){
         return(

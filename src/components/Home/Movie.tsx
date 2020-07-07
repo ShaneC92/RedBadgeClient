@@ -41,6 +41,7 @@ type stateVariable = {
               return data.json();
           })
           .then(json=>{
+            //   console.log(json);
               this.setState({
                   movieList: json
               });

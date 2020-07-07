@@ -35,14 +35,13 @@ import MenuItem from '@material-ui/core/MenuItem';
     //             <button onClick={this.props.clearToken}>Logout</button>     
     //         </div>
     //     )
-     render() {
-        return(
-             <div>
-                 <button onClick={this.props.clearToken}>Logout</button>
-             </div>
-        )
-    }
- }
+    // render() {
+        // return(
+        //      <div>
+        //          <button onClick={this.props.clearToken}>Logout</button>
+        //      </div>
+        // )
+        // }
 type clearToken = {
         clearToken: any,
         log:string,

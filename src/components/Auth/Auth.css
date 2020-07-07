@@ -48,8 +48,8 @@
       align-items: center !important;
   }
   .MuiPaper-root {
-      background-color: lightgray !important;
-    /* background: linear-gradient(90deg, rgba(155,210,212,0.07373371711966037) 0%, rgba(9,121,114,1) 71%); */
+      /* background-color: lightgray !important; */
+    background: linear-gradient(90deg, rgba(155,210,212,0.07373371711966037) 0%, rgba(9,121,114,1) 71%);
     background: linear-gradient(90deg, rgba(91,153,161,1) 0%, rgba(155,210,212,0.07373371711966037) 71%);
     /* background-color: #52d6f4 !important; */
   }

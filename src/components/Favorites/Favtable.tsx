@@ -22,6 +22,7 @@ class MovieTable extends React.Component<Token,{}>{
                 })
                 .then(()=>{
                     alert(`${movieID} deleted`);
+                    this.props.fetchMovies();
                 })
             }
             if(condition.movie){
@@ -57,6 +58,7 @@ class MovieTable extends React.Component<Token,{}>{
                 </thead>
                 <tbody>
                     {this.movieList()}
+                    {/* {this.props.fetchMovies()} */}
                 </tbody>
             </table>
         )

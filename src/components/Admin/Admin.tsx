@@ -30,6 +30,22 @@ constructor(props:Token){
         weeklyList:{}
     }
 }
+
+weeklyMovie: any = ()=>{
+    fetch(`http://localhost:3000/weekly/movies`,{
+                        method:"GET",
+                        headers: new Headers({
+                            "Content-Type": "application/json",
+                            "Authorization":this.props.token
+                        })
+                    })
+                    .then(data=>data.json())
+                    .then(weeklyJson=>{
+                      this.setState({
+                          weeklyList:weeklyJson
+                      })
+                    })
+}
 //getting a movies from movie table
 componentDidMount = () =>{
     for(let i = 0; i < 80; i++){
@@ -75,19 +91,20 @@ componentDidMount = () =>{
                 })
                 
                 .then(data=>{
-                    fetch(`http://localhost:3000/weekly/movies`,{
-                        method:"GET",
-                        headers: new Headers({
-                            "Content-Type": "application/json",
-                            "Authorization":this.props.token
-                        })
-                    })
-                    .then(data=>data.json())
-                    .then(weeklyJson=>{
-                      this.setState({
-                          weeklyList:weeklyJson
-                      })
-                    })
+                    this.weeklyMovie();
+                    // fetch(`http://localhost:3000/weekly/movies`,{
+                    //     method:"GET",
+                    //     headers: new Headers({
+                    //         "Content-Type": "application/json",
+                    //         "Authorization":this.props.token
+                    //     })
+                    // })
+                    // .then(data=>data.json())
+                    // .then(weeklyJson=>{
+                    //   this.setState({
+                    //       weeklyList:weeklyJson
+                    //   })
+                    // })
                    return data.json();
                 })
                 .then(json=>{
@@ -100,7 +117,7 @@ componentDidMount = () =>{
 
 render(){
     return(
-        <MovieTable token = {this.props.token} weekly = {this.state.weeklyList} myMovie = {this.state.movieList} role = "Admin"/>
+        <MovieTable token = {this.props.token} weeklyAdded = {this.weeklyMovie} weekly = {this.state.weeklyList} myMovie = {this.state.movieList} role = "Admin"/>
     )
 }
 }

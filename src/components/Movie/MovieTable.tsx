@@ -1,15 +1,22 @@
 import React from "react";
 import "../Home/Movie.css";
 import Rating from "../Movie/Rating";
-import { makeStyles } from '@material-ui/core/styles';
-import Paper from '@material-ui/core/Paper';
-import Table from '@material-ui/core/Table';
-import TableBody from '@material-ui/core/TableBody';
-import TableCell from '@material-ui/core/TableCell';
-import TableContainer from '@material-ui/core/TableContainer';
-import TableHead from '@material-ui/core/TableHead';
-import TablePagination from '@material-ui/core/TablePagination';
-import TableRow from '@material-ui/core/TableRow';
+import { makeStyles, Theme, createStyles } from '@material-ui/core/styles';
+import clsx from 'clsx';
+import Card from '@material-ui/core/Card';
+import CardHeader from '@material-ui/core/CardHeader';
+import CardMedia from '@material-ui/core/CardMedia';
+import CardContent from '@material-ui/core/CardContent';
+import CardActions from '@material-ui/core/CardActions';
+import Collapse from '@material-ui/core/Collapse';
+import Avatar from '@material-ui/core/Avatar';
+import IconButton from '@material-ui/core/IconButton';
+import Typography from '@material-ui/core/Typography';
+import { red } from '@material-ui/core/colors';
+import FavoriteIcon from '@material-ui/icons/Favorite';
+import ShareIcon from '@material-ui/icons/Share';
+import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
+import MoreVertIcon from '@material-ui/icons/MoreVert';
 
 type Token = {
     token: any,
@@ -19,22 +26,66 @@ type Token = {
     weeklyAdded:any
 }
 type stateVariable = {
-    page: number,
-    rowsPerPage: number
+    expanded: boolean
 }
 class MovieTable extends React.Component<Token,stateVariable>{
     constructor(props:Token){
         super(props);
         this.state = {
-            page:0,
-            rowsPerPage:10
+            expanded: false
         }
     }
     weeklyList:any = () =>{
+        const handleClick = (poster:string,movieTitle:string,genre:string,popularity:number,releaseDate:string,runTime:number,description:string,voting:number)=>{
+
+            if(this.props.role === "User"){
+                return(
+                    fetch(`http://localhost:3000/favorites/favorites`,{
+                        method: "POST",
+                        body:JSON.stringify({poster:poster,
+                                            movieTitle:movieTitle,
+                                            genre:genre,
+                                            popularity:popularity,
+                                            releaseDate:releaseDate,
+                                            runTime:runTime,
+                                            description:description
+                                        }),
+                        headers: new Headers({
+                            "Content-Type": "application/json",
+                            "Authorization":this.props.token
+                        })
+                    })
+            )
+            }
+            else{
+                return(
+                    fetch(`http://localhost:3000/weekly/postMovie`,{
+                        method: "POST",
+                        body:JSON.stringify({poster:poster,
+                                            movieTitle:movieTitle,
+                                            genre:genre,
+                                            popularity:popularity,
+                                            releaseDate:releaseDate,
+                                            runTime:runTime,
+                                            description:description,
+                                            voting:voting
+                                        }),
+                        headers: new Headers({
+                            "Content-Type": "application/json",
+                            "Authorization":this.props.token
+                        })
+                    })
+                    .then(data=>{
+                        this.props.weeklyAdded();
+                    })
+            )
+            }
+        }
         if(this.props.weekly.movies){
             ///////////////////////////////////////////////////////////////////
               ///////////////////////////////////////////////////////////////////
             let condition = this.props.weekly.movies;
+            console.log("Weekly movies",condition);
             const deleteWeekly = (movieID:number)=>{
                 fetch(`http://localhost:3000/weekly/movieList/${movieID}`,{
                     method: "DELETE",
@@ -44,22 +95,46 @@ class MovieTable extends React.Component<Token,stateVariable>{
                     })
                 })
                 .then(()=>{
-                    alert(`${movieID} deleted`);
                     this.props.weeklyAdded();
                 })
             }
+            //weekly Card
             if(this.props.role === "User"){
                 return((condition.map((movie:any,index:number)=>{
+                    const imageLink = `https://image.tmdb.org/t/p/w500${movie.poster}`;
                     return(
-                        <tr key = {index}>
-                            <td><img style = {{height: "100px",width:"100px"}}src = {`https://image.tmdb.org/t/p/w500${movie.poster}`} alt = ""/></td>
-                            <td>{movie.movieTitle}</td>
-                            <td>{movie.genre}</td>
-                            <td>{movie.popularity}</td>
-                            <td>{movie.releaseDate}</td>
-                            <td>{movie.runTime}m</td>
-                            <td>{movie.description}</td>
-                        </tr>
+                        <Card className = "cardroot">
+                            <CardHeader style = {{color:"white"}} avatar = {
+                                <Avatar aria-label = "recipe" className = "avatar">
+                                    {movie.Genre}
+                                </Avatar>
+                            
+                            }
+                            action = {
+                                <IconButton aria-label = "settings">
+                                    <MoreVertIcon/>
+                                </IconButton>
+                            }
+                            title = {movie.movieTitle}
+                            subheader = {movie.releaseDate}
+                            />
+                            <CardMedia className = "media" image = {imageLink} style = {{ height: "50px", display: "block",marginLeft:"auto",
+                        marginRight:"auto",width:"250px", objectFit:"contain"}} title = {movie.movieTitle}/>
+                            <CardContent>
+                                {/* pass voting value to this component */}
+                                <Rating vote = {movie.voting}/>
+                                <Typography variant="body2" className = "colorMe" color="textSecondary" component="p">
+                                    {movie.description}
+                                </Typography>
+                            </CardContent>
+                            <CardActions disableSpacing>
+                                <IconButton aria-label = "add to favorites">
+                                <FavoriteIcon style = {{color:"lightGray"}}onClick = {()=>{
+                                        handleClick(movie.poster,movie.movieTitle,movie.Genre,movie.popularity,movie.releaseDate,movie.runTime,movie.description,movie.voting);
+                                    }}/>
+                                </IconButton>
+                            </CardActions>
+                        </Card>
                     )
                 })))
             }
@@ -74,6 +149,7 @@ class MovieTable extends React.Component<Token,stateVariable>{
                             <td>{movie.releaseDate}</td>
                             <td>{movie.runTime}m</td>
                             <td>{movie.description}</td>
+                            <td>{movie.voting}</td>
                             <td><button onClick = {()=>{
                                 deleteWeekly(movie.id);
                             }}>Delete</button></td>
@@ -85,10 +161,9 @@ class MovieTable extends React.Component<Token,stateVariable>{
     }
     movieList:any = () =>{
         let condition = this.props.myMovie;
-        const handleClick = (poster:string,movieTitle:string,genre:string,popularity:number,releaseDate:string,runTime:number,description:string)=>{
+        const handleClick = (poster:string,movieTitle:string,genre:string,popularity:number,releaseDate:string,runTime:number,description:string,voting:number)=>{
 
             if(this.props.role === "User"){
-                alert("Added to favorite");
                 return(
                         fetch(`http://localhost:3000/favorites/favorites`,{
                             method: "POST",
@@ -107,7 +182,6 @@ class MovieTable extends React.Component<Token,stateVariable>{
                 )
             }
             else{
-                alert("Added to Weekly");
                 return(
                     fetch(`http://localhost:3000/weekly/postMovie`,{
                         method: "POST",
@@ -117,7 +191,8 @@ class MovieTable extends React.Component<Token,stateVariable>{
                                             popularity:popularity,
                                             releaseDate:releaseDate,
                                             runTime:runTime,
-                                            description:description}),
+                                            description:description,
+                                            voting:voting}),
                         headers: new Headers({
                             "Content-Type": "application/json",
                             "Authorization":this.props.token
@@ -131,25 +206,45 @@ class MovieTable extends React.Component<Token,stateVariable>{
         }
 
 
-
+//Card implementation
         if(condition.movie){
             console.log(condition.movie); //this is an array
             if(this.props.role === "User"){
                 return((condition.movie.map((movie:any,index:number)=>{
+                    const imageLink = `https://image.tmdb.org/t/p/w500${movie.poster}`;
                     return(
-                        <tr key = {index}>
-                            <td><img style = {{height: "100px",width:"100px"}}src = {`https://image.tmdb.org/t/p/w500${movie.poster}`} alt = ""/></td>
-                            <td>{movie.movieTitle}</td>
-                            <td>{movie.genre}</td>
-                            <td>{movie.popularity}</td>
-                            <td>{movie.releaseDate}</td>
-                            <td>{movie.runTime}m</td>
-                            <td>{movie.description}</td>
-                            <td><Rating/></td>
-                            <td><button onClick = {()=>{
-                                handleClick(movie.poster,movie.movieTitle,movie.genre,movie.popularity,movie.releaseDate,movie.runTime,movie.description);
-                            }}>Favorite</button></td>
-                        </tr>
+                        <Card className = "cardroot">
+                            <CardHeader style = {{color:"white"}} avatar = {
+                                <Avatar aria-label = "recipe" className = "avatar">
+                                    {movie.genre}
+                                </Avatar>
+                            
+                            }
+                            action = {
+                                <IconButton aria-label = "settings">
+                                    <MoreVertIcon/>
+                                </IconButton>
+                            }
+                            title = {movie.movieTitle}
+                            subheader = {movie.releaseDate}
+                            />
+                            <CardMedia className = "media" image = {imageLink} style = {{ height: "50px", display: "block",marginLeft:"auto",
+                        marginRight:"auto",width:"250px", objectFit:"contain"}} title = {movie.movieTitle}/>
+                            <CardContent>
+                                {/* pass vote average value to this component */}
+                                <Rating vote = {movie.voting}/>
+                                <Typography variant="body2" className = "colorMe" color="textSecondary" component="p">
+                                    {movie.description}
+                                </Typography>
+                            </CardContent>
+                            <CardActions disableSpacing>
+                                <IconButton aria-label = "add to favorites">
+                                    <FavoriteIcon style = {{color:"lightGray"}}onClick = {()=>{
+                                        handleClick(movie.poster,movie.movieTitle,movie.genre,movie.popularity,movie.releaseDate,movie.runTime,movie.description,movie.voting);
+                                    }}/>
+                                </IconButton>
+                            </CardActions>
+                        </Card>
                     )
                 })))
             }
@@ -164,8 +259,9 @@ class MovieTable extends React.Component<Token,stateVariable>{
                             <td>{movie.releaseDate}</td>
                             <td>{movie.runTime}m</td>
                             <td>{movie.description}</td>
+                            <td>{movie.voting}</td>
                             <td><button onClick = {()=>{
-                                 handleClick(movie.poster,movie.movieTitle,movie.genre,movie.popularity,movie.releaseDate,movie.runTime,movie.description);
+                                 handleClick(movie.poster,movie.movieTitle,movie.genre,movie.popularity,movie.releaseDate,movie.runTime,movie.description,movie.voting);
                             }}>Weekly</button></td>
                         </tr>
                     )
@@ -175,39 +271,20 @@ class MovieTable extends React.Component<Token,stateVariable>{
     }
     render(){
         return(
-            <div className = "movie">
+            <div className = "movieListShow">
+                <div>
 
-                <table style = {{width: "40%"}}>
-                <caption><h1>List of Movies</h1></caption>
-                    <thead>
-                        <th>Poster</th>
-                        <th>Movie Title</th>
-                        <th>Genre</th>
-                        <th>Popularity</th>
-                        <th>release Date</th>
-                        <th>Run Time</th>
-                        <th>Description</th>
-                    </thead>
-                    <tbody>
-                        {this.movieList()}
-                    </tbody>
-                </table>
-                <table style = {{width:"40%"}}>
-                <caption><h1>Weekly</h1></caption>
-                <thead>
-                        <th>Poster</th>
-                        <th>Movie Title</th>
-                        <th>Genre</th>
-                        <th>Popularity</th>
-                        <th>release Date</th>
-                        <th>Run Time</th>
-                        <th>Description</th>
-                    </thead>
-                    <tbody>
+                    <h1>Featured Movies</h1>
+                    <div className = "scrollBar">
+                            {this.movieList()}
+                    </div>
+                </div>
+                <div>
+                    <h1>Recommended for the Week</h1>
+                    <div className = "scrollBar2">
                         {this.weeklyList()}
-                        {/* {this.props.weeklyAdded()} */}
-                    </tbody>
-                </table>
+                    </div>
+                </div>
             </div>
         )
     }

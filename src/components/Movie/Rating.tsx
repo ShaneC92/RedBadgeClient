@@ -27,9 +27,12 @@ type stateVariable = {
   value:number|null,
   hover:any
 }
+type prop = {
+  vote:number
+}
 
-export default class HoverRating extends React.Component<{},stateVariable> {
-  constructor(props:stateVariable){
+export default class HoverRating extends React.Component<prop,stateVariable> {
+  constructor(props:prop){
     super(props);
     this.state = {
       value:2,
@@ -40,21 +43,12 @@ export default class HoverRating extends React.Component<{},stateVariable> {
     return (
       <div className="this.classes.root">
         <Rating
-          name="hover-feedback"
-          value={this.state.value}
+          name="read-only"
+          value={this.props.vote}
+          max = {10}
           precision={0.5}
-          onChange={(event,newValue:any) => {
-          this.setState({
-            value:newValue
-          })
-          }}
-          onChangeActive={(event,newHover:any) => {
-            this.setState({
-              hover:newHover
-            })
-          }}
+          readOnly
         />
-        {this.state.value !== null && <Box ml={2}>{labels[this.state.hover !== -1 ? this.state.hover : this.state.value]}</Box>}
       </div>
     );
   }

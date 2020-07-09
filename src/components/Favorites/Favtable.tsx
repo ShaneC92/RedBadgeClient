@@ -1,6 +1,6 @@
 import React from "react";
-
-
+import IconButton from '@material-ui/core/IconButton';
+import DeleteIcon from '@material-ui/icons/Delete';
 type Token = {
     token: any,
     myMovie:any,
@@ -9,7 +9,7 @@ type Token = {
 }
 
 class MovieTable extends React.Component<Token,{}>{
-
+        
         movieList: any = () =>{
             console.log(this.props.weekly);
             let condition = this.props.myMovie;
@@ -22,22 +22,24 @@ class MovieTable extends React.Component<Token,{}>{
                     })
                 })
                 .then(()=>{
+                    this.props.fetchMovies();
                 })
             }
             if(condition.movie){
                     return((condition.movie.map((movie:any,index:number)=>{
                         return(
                             <tr key = {index}>
-                                <td><img style = {{height: "100px",width:"100px"}}src = {`https://image.tmdb.org/t/p/w500${movie.poster}`} alt = ""/></td>
+                                <td><img style = {{height: "200px",width:"150px"}}src = {`https://image.tmdb.org/t/p/w500${movie.poster}`} alt = ""/></td>
                                 <td>{movie.movieTitle}</td>
                                 <td>{movie.genre}</td>
                                 <td>{movie.popularity}</td>
-                                <td>{movie.releaseDate}</td>
                                 <td>{movie.runTime}m</td>
+                                <td id = "release">{movie.releaseDate}</td>
                                 <td>{movie.description}</td>
-                                <td><button onClick = {()=>{
+                                <td><IconButton style = {{color:"white"}}aria-label="delete" onClick = {()=>{
                                     deleteMovie(movie.id);
-                                }}>DELETE</button></td>
+                                }}><DeleteIcon />
+                                </IconButton></td>
                             </tr>
                         )
                     })))
@@ -45,18 +47,20 @@ class MovieTable extends React.Component<Token,{}>{
             }
     render(){
         return(
-            <table style = {{width: "40%",margin:"auto"}}>
-                <thead>
+            <table style = {{width: "90%",margin:"auto", border:"1px solid black"}}>
+                <thead className = "favoriteHeader">
                     <th>Poster</th>
                     <th>Movie Title</th>
                     <th>Genre</th>
                     <th>Popularity</th>
-                    <th>release Date</th>
                     <th>Run Time</th>
+                    <th>Release Date</th>
                     <th>Description</th>
+                    <th></th>
                 </thead>
-                <tbody>
+                <tbody className = "favoriteBody">
                     {this.movieList()}
+                    {/* {this.props.fetchMovies()} */}
                 </tbody>
             </table>
         )

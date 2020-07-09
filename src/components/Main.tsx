@@ -55,7 +55,7 @@ class Main extends React.Component <{},states>{
     clearToken = (e:any) => {
         localStorage.clear();
         this.setState({sessionToken: ('')});
-        this.setState({login:""});
+        this.setState({login:"LOGIN"});
         this.setState({firstName:"Ur-A-Critic"});
     }
 
@@ -91,7 +91,7 @@ class Main extends React.Component <{},states>{
         return(
             <div>
                 <Router>
-                    <Navbar clearToken={this.clearToken} log = {this.state.login} username = {this.state.firstName} />
+                    <Navbar clearToken={this.clearToken} log = {this.state.login} username = {this.state.firstName} role = {this.state.role} />
                     {this.updateView()}
                 </Router>
             </div>

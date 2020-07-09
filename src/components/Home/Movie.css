@@ -1,4 +1,59 @@
 .movie{
     display: flex;
     justify-content: space-between;
+    color:white !important;
+}
+.cardroot{
+    max-width: 345;
+    width:100%;
+    display: inline-block;
+    margin-bottom: 2%;
+    background-color:#363538 !important;
+    color:white !important;
+    object-fit: contain !important;
+}
+.MuiCardHeader-title{
+    font-size: 25px !important;
+}
+.media{
+    padding-top: 56.26%;
+    background-size: cover;
+    background-position: center;
+}
+.expand{
+    transform: rotate(0deg);
+    margin-left: auto;
+    
+}
+.expandOpen{
+    transform: rotate(180deg);
+}
+.avatar{
+    background-color: red;
+    height:100px !important;
+    width:100px !important;
+    color:black!important
+}
+.scrollBar{
+    margin-top: 1%;
+    height: 80vh;
+    overflow-y: scroll;
+    width:45vw;
+}
+.scrollBar2{
+    width:45vw;
+    overflow-y: scroll;
+    height: 80vh;
+}
+.colorMe{
+    color:white !important;
+    font-size: 18px !important;
+}
+.MuiCardHeader-subheader{
+    color:white !important;
+    font-size: 20px !important;
+}
+.movieListShow{
+    display: flex;
+    justify-content: space-evenly;
 }

@@ -50,7 +50,7 @@
       background: linear-gradient(90deg, rgba(91,153,161,1) 0%, rgba(155,210,212,0.07373371711966037) 71%);
   }
 body{
-  background-color: #f6f6f6;
+  background: linear-gradient(90deg, rgba(91,153,161,1) 0%, #1976D2 71%);
 }
   .avatar {
       margin-top: 65px !important;

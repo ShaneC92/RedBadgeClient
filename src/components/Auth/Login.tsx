@@ -61,32 +61,33 @@ class Login extends React.Component<props, MyVariables>{
     //this.handleSubmit = this.handleSubmit.bind(this)
   }
 
-    handleSubmit = (e:any)=>{
-        //let myObject:any = (this); 
-        e.preventDefault();
-        // console.log("Hello");
-        // console.log(this.state.firstName);
-        //console.log(myObject.state.firstName);
-        fetch(`http://localhost:3000/user/login`,{
-            method: "POST",
-            body:JSON.stringify({
-                                email: this.state.email,
-                                password: this.state.password}),
-            headers: new Headers({
-                "Content-Type": "application/json"
-            })
-        })
-            .then(data=>data.json())
-            .then(json=>{
-               this.props.updateToken(json.sessionToken,json.user.userRole,json.user.firstName);
-               json.sessionToken?this.props.updateLog("LOGOUT"):this.props.updateLog("LOGIN");
-               //this.props.updateToken(json.data.sessionToken);
-            })
-    }
-    componentDidMount=()=>{
-      // const dom: any = document.getElementsByClassName("image")[0];
-      // dom.style.backgroundImage = "url('https://source.unsplash.com/collection/10534533')"
-      this.props.updateLog("SIGNUP");
+  handleSubmit = (e: any) => {
+    //let myObject:any = (this); 
+    e.preventDefault();
+    // console.log("Hello");
+    // console.log(this.state.firstName);
+    //console.log(myObject.state.firstName);
+    fetch(`http://localhost:3000/user/login`, {
+      method: "POST",
+      body: JSON.stringify({
+        email: this.state.email,
+        password: this.state.password
+      }),
+      headers: new Headers({
+        "Content-Type": "application/json"
+      })
+    })
+      .then(data => data.json())
+      .then(json => {
+        this.props.updateToken(json.sessionToken, json.user.userRole, json.user.firstName);
+        json.sessionToken ? this.props.updateLog("LOGOUT") : this.props.updateLog("LOGIN");
+        //this.props.updateToken(json.data.sessionToken);
+      })
+  }
+  componentDidMount = () => {
+    // const dom: any = document.getElementsByClassName("image")[0];
+    // dom.style.backgroundImage = "url('https://source.unsplash.com/collection/10534533')"
+    this.props.updateLog("SIGNUP");
   }
   render() {
     return (

@@ -2,7 +2,7 @@ import React from "react";
 import Auth from "./Auth/Auth";
 import Movie from './Home/Movie';
 import Navbar from '../components/Navbar/Navbar';
-import {BrowserRouter as Router} from "react-router-dom";
+import { BrowserRouter as Router } from "react-router-dom";
 import APIURL from "./helpers/environment";
 import Home from "./Home/Movie";
 import Admin from "./Admin/Admin";
@@ -13,19 +13,19 @@ import Admin from "./Admin/Admin";
 type states = {
     sessionToken: any,
     login: string,
-    role:string,
-    firstName:string
+    role: string,
+    firstName: string
 
 }
 
-class Main extends React.Component <{},states>{
-    constructor(props:states){
+class Main extends React.Component<{}, states>{
+    constructor(props: states) {
         super(props)
         this.state = {
             sessionToken: "",
             login: "LOGIN",
-            role:"",
-            firstName:"Ur-A-Critic"
+            role: "",
+            firstName: "Ur-A-Critic"
         }
     }
     // componentDidMount(){
@@ -43,55 +43,55 @@ class Main extends React.Component <{},states>{
     //     }
     // }
     //updating a sessionToken
-    updateToken = (sessionToken:string,role:string,firstName:string)=>{
-        localStorage.setItem("token",sessionToken);
+    updateToken = (sessionToken: string, role: string, firstName: string) => {
+        localStorage.setItem("token", sessionToken);
         this.setState({
             sessionToken: sessionToken,
-            role:role,
-            firstName:firstName
+            role: role,
+            firstName: firstName
         })
     }
 
-    clearToken = (e:any) => {
+    clearToken = (e: any) => {
         localStorage.clear();
-        this.setState({sessionToken: ('')});
-        this.setState({login:"LOGIN"});
-        this.setState({firstName:"Ur-A-Critic"});
+        this.setState({ sessionToken: ('') });
+        this.setState({ login: "LOGIN" });
+        this.setState({ firstName: "Ur-A-Critic" });
     }
 
-    updateLog = (log:string)=>{
+    updateLog = (log: string) => {
         this.setState({
-            login:log
+            login: log
         })
     }
-    updateView = ()=>{
-        if(this.state.sessionToken === localStorage.getItem("token")){
-            if(this.state.role === "User"){
+    updateView = () => {
+        if (this.state.sessionToken === localStorage.getItem("token")) {
+            if (this.state.role === "User") {
 
-                return(
-    
-                    <Movie token={this.state.sessionToken} user = {this.state.role} />
+                return (
+
+                    <Movie token={this.state.sessionToken} user={this.state.role} />
                 )
             }
-            else{
-                return(
-                    <Admin token = {this.state.sessionToken}/>
+            else {
+                return (
+                    <Admin token={this.state.sessionToken} />
                 )
             }
         }
-        else{
-            return(
+        else {
+            return (
 
-                <Auth updateToken = {this.updateToken} token = {this.state.sessionToken} updateLog = {this.updateLog}/>
+                <Auth updateToken={this.updateToken} token={this.state.sessionToken} updateLog={this.updateLog} />
             )
         }
     }
 
-    render(){
-        return(
+    render() {
+        return (
             <div>
                 <Router>
-                    <Navbar clearToken={this.clearToken} log = {this.state.login} username = {this.state.firstName} role = {this.state.role} />
+                    <Navbar clearToken={this.clearToken} log={this.state.login} username={this.state.firstName} role={this.state.role} />
                     {this.updateView()}
                 </Router>
             </div>

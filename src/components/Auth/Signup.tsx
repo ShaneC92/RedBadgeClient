@@ -168,105 +168,105 @@ class Signup extends React.Component<props, MyVariables>{
       }
     }
   }
-    componentDidMount = () => {
-      this.props.updateLog("LOGIN");
-    }
-    render() {
-      return (
-        <Grid container component="main" className='root'>
-          <CssBaseline />
-          <Grid item xs={false} sm={4} md={7} className='image' />
-          <Grid item xs={12} sm={8} md={5} component={Paper} elevation={6} square>
-            <div className='paper'>
-              <Avatar className='avatar'>
-                <LockOutlinedIcon />
-              </Avatar>
-              <Typography component="h1" variant="h5">
-                Sign Up
-          </Typography>
-              <form className='form' noValidate onSubmit={this.handleSubmit}>
-                <TextField
-                  variant="outlined"
-                  margin="normal"
-                  required
-                  fullWidth
-                  id="firstName"
-                  label="First Name"
-                  name="firstName"
-                  autoComplete="First Name"
-                  autoFocus
-                  value={this.state.firstName}
-                  //onChange = {e=>this.setState({firstName:e.target.value})}
-                  onChange={e => {
-                    this.setState({ firstName: e.target.value })
-                  }}
-                />
-                {this.state.message1}<br />
-                <TextField
-                  variant="outlined"
-                  margin="normal"
-                  required
-                  fullWidth
-                  id="lastName"
-                  label="Last Name"
-                  name="lastName"
-                  autoComplete="Last Name"
-                  autoFocus
-                  value={this.state.lastName}
-                  onChange={e => this.setState({ lastName: e.target.value })}
-                />
-                {this.state.message2}<br />
-                <TextField
-                  variant="outlined"
-                  margin="normal"
-                  required
-                  fullWidth
-                  id="email"
-                  label="Email Address"
-                  name="email"
-                  autoComplete="email"
-                  autoFocus
-                  value={this.state.email}
-                  onChange={e => this.setState({ email: e.target.value })}
-                />
-                {this.state.message3}<br />
-                <TextField
-                  variant="outlined"
-                  margin="normal"
-                  required
-                  fullWidth
-                  name="password"
-                  label="Password"
-                  type="password"
-                  id="password"
-                  autoComplete="off"
-                  value={this.state.password}
-                  onChange={e => this.setState({ password: e.target.value })}
-                />
-                {this.state.message4}<br />
-                <Button
-                  type="submit"
-                  fullWidth
-                  variant="contained"
-                  color="primary"
-                  className='submit'
-                >
-                  Sign Up
-            </Button>
-                <Grid container>
-                  <Grid item className='login'>
-                    <span style={{ color: "black" }}> Already have an account? </span>
-                    <Link href="login" variant="body2">
-                      {"Login"}
-                    </Link>
-                  </Grid>
-                </Grid>
-              </form>
-            </div>
-          </Grid>
-        </Grid>
-      );
-    }
+  componentDidMount = () => {
+    this.props.updateLog("LOGIN");
   }
+  render() {
+    return (
+      <Grid container component="main" className='root'>
+        <CssBaseline />
+        <Grid item xs={false} sm={4} md={7} className='image' />
+        <Grid item xs={12} sm={8} md={5} component={Paper} elevation={6} square>
+          <div className='paper'>
+            <Avatar className='avatar'>
+              <LockOutlinedIcon />
+            </Avatar>
+            <Typography component="h1" variant="h5">
+              Sign Up
+          </Typography>
+            <form className='form' noValidate onSubmit={this.handleSubmit}>
+              <TextField
+                variant="outlined"
+                margin="normal"
+                required
+                fullWidth
+                id="firstName"
+                label="First Name"
+                name="firstName"
+                autoComplete="First Name"
+                autoFocus
+                value={this.state.firstName}
+                //onChange = {e=>this.setState({firstName:e.target.value})}
+                onChange={e => {
+                  this.setState({ firstName: e.target.value })
+                }}
+              />
+              {this.state.message1}<br />
+              <TextField
+                variant="outlined"
+                margin="normal"
+                required
+                fullWidth
+                id="lastName"
+                label="Last Name"
+                name="lastName"
+                autoComplete="Last Name"
+                autoFocus
+                value={this.state.lastName}
+                onChange={e => this.setState({ lastName: e.target.value })}
+              />
+              {this.state.message2}<br />
+              <TextField
+                variant="outlined"
+                margin="normal"
+                required
+                fullWidth
+                id="email"
+                label="Email Address"
+                name="email"
+                autoComplete="email"
+                autoFocus
+                value={this.state.email}
+                onChange={e => this.setState({ email: e.target.value })}
+              />
+              {this.state.message3}<br />
+              <TextField
+                variant="outlined"
+                margin="normal"
+                required
+                fullWidth
+                name="password"
+                label="Password"
+                type="password"
+                id="password"
+                autoComplete="off"
+                value={this.state.password}
+                onChange={e => this.setState({ password: e.target.value })}
+              />
+              {this.state.message4}<br />
+              <Button
+                type="submit"
+                fullWidth
+                variant="contained"
+                color="primary"
+                className='submit'
+              >
+                Sign Up
+            </Button>
+              <Grid container>
+                <Grid item className='login'>
+                  <span style={{ color: "black" }}> Already have an account? </span>
+                  <Link href="login" variant="body2">
+                    {"Login"}
+                  </Link>
+                </Grid>
+              </Grid>
+            </form>
+          </div>
+        </Grid>
+      </Grid>
+    );
+  }
+}
 
-  export default Signup;
+export default Signup;

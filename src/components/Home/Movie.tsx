@@ -8,104 +8,104 @@ import CardContent from '@material-ui/core/CardContent';
 import CardMedia from '@material-ui/core/CardMedia';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
-import {Switch,Route} from "react-router-dom";
+import { Switch, Route } from "react-router-dom";
 import MovieTable from "../Movie/MovieTable";
 import FavoriteTable from "../Favorites/favMovie";
 import APIURL from '../helpers/environment';
 
 type Token = {
     token: any,
-    user:string
+    user: string
 }
 type stateVariable = {
     movieList: any,
     favoriteMovieList: any,
-    weeklyList:any
+    weeklyList: any
 }
-  class Movie extends React.Component<Token,stateVariable>{
-      constructor(props:Token){
-          super(props);
-          this.state = {
-              movieList: {},
-              favoriteMovieList: {},
-              weeklyList:{}
-          }
-      }
-      weeklyAdded:any = ()=>{
-           fetch(`http://localhost:3000/weekly/movies`,{
-                method:"GET",
-                headers: new Headers({
-                    "Content-Type": "application/json",
-                    "Authorization":this.props.token
-                })
-            })
-            .then(weeklyData=>weeklyData.json())
-            .then(weeklyJson=>{
-              this.setState({
-                  weeklyList:weeklyJson
-              })
-            })
-      }
-      weeklyMovie:any = ()=>{
-        fetch(`http://localhost:3000/weekly/movies`,{
-            method:"GET",
-            headers: new Headers({
-                "Content-Type": "application/json",
-                "Authorization":this.props.token
-            })
-        })
-        .then(weeklyData=>weeklyData.json())
-        .then(weeklyJson=>{
-          this.setState({
-              weeklyList:weeklyJson
-          })
-        })
-      }
-      componentDidMount = ()=>{
-          console.log("This data is from movie.tsx");
-          fetch(`http://localhost:3000/movie/movie`,{
-              method: "GET",
-              headers: new Headers({
-                "Content-Type": "application/json",
-                "Authorization":this.props.token
-              })
-          })
-          .then(data=>{
-              this.weeklyAdded();
-            // fetch(`http://localhost:3000/weekly/movies`,{
-            //     method:"GET",
-            //     headers: new Headers({
-            //         "Content-Type": "application/json",
-            //         "Authorization":this.props.token
-            //     })
-            // })
-            // .then(weeklyData=>weeklyData.json())
-            // .then(weeklyJson=>{
-            //   this.setState({
-            //       weeklyList:weeklyJson
-            //   })
-            // })
-              return data.json();
-          })
-          .then(json=>{
-            //   console.log(json);
-              this.setState({
-                  movieList: json
-              });
-          })
-      }
-           
-        render(){
-            return(
-        <Switch>
-            <Route exact path = "/signup"><MovieTable token = {this.props.token} weeklyAdded = {this.weeklyAdded} weekly = {this.state.weeklyList} role = {this.props.user} myMovie = {this.state.movieList}/></Route>
-            <Route exact path = "/login"><MovieTable token = {this.props.token} weeklyAdded = {this.weeklyAdded} weekly = {this.state.weeklyList} role = {this.props.user} myMovie = {this.state.movieList}/></Route>
-            <Route exact path = "/movie"><MovieTable token = {this.props.token} weeklyAdded = {this.weeklyAdded}weekly = {this.state.weeklyList} role = {this.props.user} myMovie = {this.state.movieList}/></Route>
-            <Route exact path = "/favorites"><FavoriteTable token = {this.props.token}
-             role = {this.props.user} weekly = {this.state.weeklyList}/></Route>
-        </Switch>
-            )
+class Movie extends React.Component<Token, stateVariable>{
+    constructor(props: Token) {
+        super(props);
+        this.state = {
+            movieList: {},
+            favoriteMovieList: {},
+            weeklyList: {}
         }
     }
+    weeklyAdded: any = () => {
+        fetch(`http://localhost:3000/weekly/movies`, {
+            method: "GET",
+            headers: new Headers({
+                "Content-Type": "application/json",
+                "Authorization": this.props.token
+            })
+        })
+            .then(weeklyData => weeklyData.json())
+            .then(weeklyJson => {
+                this.setState({
+                    weeklyList: weeklyJson
+                })
+            })
+    }
+    weeklyMovie: any = () => {
+        fetch(`http://localhost:3000/weekly/movies`, {
+            method: "GET",
+            headers: new Headers({
+                "Content-Type": "application/json",
+                "Authorization": this.props.token
+            })
+        })
+            .then(weeklyData => weeklyData.json())
+            .then(weeklyJson => {
+                this.setState({
+                    weeklyList: weeklyJson
+                })
+            })
+    }
+    componentDidMount = () => {
+        console.log("This data is from movie.tsx");
+        fetch(`http://localhost:3000/movie/movie`, {
+            method: "GET",
+            headers: new Headers({
+                "Content-Type": "application/json",
+                "Authorization": this.props.token
+            })
+        })
+            .then(data => {
+                this.weeklyAdded();
+                // fetch(`http://localhost:3000/weekly/movies`,{
+                //     method:"GET",
+                //     headers: new Headers({
+                //         "Content-Type": "application/json",
+                //         "Authorization":this.props.token
+                //     })
+                // })
+                // .then(weeklyData=>weeklyData.json())
+                // .then(weeklyJson=>{
+                //   this.setState({
+                //       weeklyList:weeklyJson
+                //   })
+                // })
+                return data.json();
+            })
+            .then(json => {
+                //   console.log(json);
+                this.setState({
+                    movieList: json
+                });
+            })
+    }
+
+    render() {
+        return (
+            <Switch>
+                <Route exact path="/signup"><MovieTable token={this.props.token} weeklyAdded={this.weeklyAdded} weekly={this.state.weeklyList} role={this.props.user} myMovie={this.state.movieList} /></Route>
+                <Route exact path="/login"><MovieTable token={this.props.token} weeklyAdded={this.weeklyAdded} weekly={this.state.weeklyList} role={this.props.user} myMovie={this.state.movieList} /></Route>
+                <Route exact path="/movie"><MovieTable token={this.props.token} weeklyAdded={this.weeklyAdded} weekly={this.state.weeklyList} role={this.props.user} myMovie={this.state.movieList} /></Route>
+                <Route exact path="/favorites"><FavoriteTable token={this.props.token}
+                    role={this.props.user} weekly={this.state.weeklyList} /></Route>
+            </Switch>
+        )
+    }
+}
 
 export default Movie;

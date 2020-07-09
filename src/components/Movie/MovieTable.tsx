@@ -18,7 +18,6 @@ class MovieTable extends React.Component<Token, {}>{
         const handleClick = (poster: string, movieTitle: string, genre: string, popularity: number, releaseDate: string, runTime: number, description: string) => {
 
             if (this.props.role === "User") {
-                alert("Added to favorite");
                 return (
                     fetch(`http://localhost:3000/favorites/favorites`, {
                         method: "POST",

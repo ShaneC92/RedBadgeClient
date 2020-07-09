@@ -22,7 +22,6 @@ class MovieTable extends React.Component<Token,{}>{
                     })
                 })
                 .then(()=>{
-                    alert(`${movieID} deleted`);
                 })
             }
             if(condition.movie){

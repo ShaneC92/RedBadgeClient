@@ -31,7 +31,38 @@ type stateVariable = {
               weeklyList:{}
           }
       }
+      weeklyAdded:any = ()=>{
+           fetch(`http://localhost:3000/weekly/movies`,{
+                method:"GET",
+                headers: new Headers({
+                    "Content-Type": "application/json",
+                    "Authorization":this.props.token
+                })
+            })
+            .then(weeklyData=>weeklyData.json())
+            .then(weeklyJson=>{
+              this.setState({
+                  weeklyList:weeklyJson
+              })
+            })
+      }
+      weeklyMovie:any = ()=>{
+        fetch(`http://localhost:3000/weekly/movies`,{
+            method:"GET",
+            headers: new Headers({
+                "Content-Type": "application/json",
+                "Authorization":this.props.token
+            })
+        })
+        .then(weeklyData=>weeklyData.json())
+        .then(weeklyJson=>{
+          this.setState({
+              weeklyList:weeklyJson
+          })
+        })
+      }
       componentDidMount = ()=>{
+          console.log("This data is from movie.tsx");
           fetch(`http://localhost:3000/movie/movie`,{
               method: "GET",
               headers: new Headers({
@@ -40,19 +71,20 @@ type stateVariable = {
               })
           })
           .then(data=>{
-            fetch(`http://localhost:3000/weekly/movies`,{
-                method:"GET",
-                headers: new Headers({
-                    "Content-Type": "application/json",
-                    "Authorization":this.props.token
-                })
-            })
-            .then(data=>data.json())
-            .then(weeklyJson=>{
-              this.setState({
-                  weeklyList:weeklyJson
-              })
-            })
+              this.weeklyAdded();
+            // fetch(`http://localhost:3000/weekly/movies`,{
+            //     method:"GET",
+            //     headers: new Headers({
+            //         "Content-Type": "application/json",
+            //         "Authorization":this.props.token
+            //     })
+            // })
+            // .then(weeklyData=>weeklyData.json())
+            // .then(weeklyJson=>{
+            //   this.setState({
+            //       weeklyList:weeklyJson
+            //   })
+            // })
               return data.json();
           })
           .then(json=>{
@@ -65,8 +97,9 @@ type stateVariable = {
         render(){
             return(
         <Switch>
-            <Route exact path = "/login"><MovieTable token = {this.props.token} weekly = {this.state.weeklyList} role = {this.props.user} myMovie = {this.state.movieList}/></Route>
-            <Route exact path = "/movie"><MovieTable token = {this.props.token} weekly = {this.state.weeklyList} role = {this.props.user} myMovie = {this.state.movieList}/></Route>
+            <Route exact path = "/signup"><MovieTable token = {this.props.token} weeklyAdded = {this.weeklyAdded} weekly = {this.state.weeklyList} role = {this.props.user} myMovie = {this.state.movieList}/></Route>
+            <Route exact path = "/login"><MovieTable token = {this.props.token} weeklyAdded = {this.weeklyAdded} weekly = {this.state.weeklyList} role = {this.props.user} myMovie = {this.state.movieList}/></Route>
+            <Route exact path = "/movie"><MovieTable token = {this.props.token} weeklyAdded = {this.weeklyAdded}weekly = {this.state.weeklyList} role = {this.props.user} myMovie = {this.state.movieList}/></Route>
             <Route exact path = "/favorites"><FavoriteTable token = {this.props.token}
              role = {this.props.user} weekly = {this.state.weeklyList}/></Route>
         </Switch>
@@ -75,8 +108,3 @@ type stateVariable = {
     }
 
 export default Movie;
-
-
-// `https://api.themoviedb.org/4/list/1?page=1&api_key=20efcae6ae818a4f9c50669db7afbb8a`
-
-//https://api.themoviedb.org/3/search/movie?api_key=<APIKEY>&query=<keyword>

@@ -25,7 +25,7 @@ class Main extends React.Component <{},states>{
             sessionToken: "",
             login: "LOGIN",
             role:"",
-            firstName:"HOME"
+            firstName:"Ur-A-Critic"
         }
     }
     // componentDidMount(){
@@ -55,8 +55,8 @@ class Main extends React.Component <{},states>{
     clearToken = (e:any) => {
         localStorage.clear();
         this.setState({sessionToken: ('')});
-        this.setState({login:"LOGIN"});
-        this.setState({firstName:"HOME"});
+        this.setState({login:""});
+        this.setState({firstName:"Ur-A-Critic"});
     }
 
     updateLog = (log:string)=>{

@@ -1,5 +1,6 @@
 import React from "react";
 import MovieTable from "../Movie/MovieTable";
+
 type Token = {
     token: any
 }
@@ -11,9 +12,10 @@ type Movies = {
     releaseDate: string,
     runTime: number,
     description: string,
-    movieList: any
-
+    movieList: any,
+    weeklyList:any
 }
+
 class Main extends React.Component<Token,Movies>{
 constructor(props:Token){
     super(props);
@@ -25,9 +27,11 @@ constructor(props:Token){
         releaseDate:"",
         runTime:0,
         description:"",
-        movieList:{}
+        movieList:{},
+        weeklyList:{}
     }
 }
+
 //getting a movies from movie table
 componentDidMount = () =>{
     for(let i = 0; i < 80; i++){
@@ -73,19 +77,32 @@ componentDidMount = () =>{
                 })
                 
                 .then(data=>{
+                    fetch(`http://localhost:3000/weekly/movies`,{
+                        method:"GET",
+                        headers: new Headers({
+                            "Content-Type": "application/json",
+                            "Authorization":this.props.token
+                        })
+                    })
+                    .then(data=>data.json())
+                    .then(weeklyJson=>{
+                      this.setState({
+                          weeklyList:weeklyJson
+                      })
+                    })
                    return data.json();
                 })
                 .then(json=>{
                     this.setState({
                         movieList:json
-                    })
+                    });
                 })
     
 }
 
 render(){
     return(
-        <MovieTable token = {this.props.token} myMovie = {this.state.movieList} role = "Admin"/>
+        <MovieTable token = {this.props.token} weekly = {this.state.weeklyList} myMovie = {this.state.movieList} role = "Admin"/>
     )
 }
 }

@@ -19,14 +19,16 @@ type Token = {
 }
 type stateVariable = {
     movieList: any,
-    favoriteMovieList: any
+    favoriteMovieList: any,
+    weeklyList:any
 }
   class Movie extends React.Component<Token,stateVariable>{
       constructor(props:Token){
           super(props);
           this.state = {
               movieList: {},
-              favoriteMovieList: {}
+              favoriteMovieList: {},
+              weeklyList:{}
           }
       }
       componentDidMount = ()=>{
@@ -38,24 +40,35 @@ type stateVariable = {
               })
           })
           .then(data=>{
+            fetch(`http://localhost:3000/weekly/movies`,{
+                method:"GET",
+                headers: new Headers({
+                    "Content-Type": "application/json",
+                    "Authorization":this.props.token
+                })
+            })
+            .then(data=>data.json())
+            .then(weeklyJson=>{
+              this.setState({
+                  weeklyList:weeklyJson
+              })
+            })
               return data.json();
           })
           .then(json=>{
               this.setState({
                   movieList: json
               });
-              //fetch from favorite end point
           })
       }
            
         render(){
-
             return(
         <Switch>
-            <Route exact path = "/login"><MovieTable token = {this.props.token} role = {this.props.user} myMovie = {this.state.movieList}/></Route>
-            <Route exact path = "/movie"><MovieTable token = {this.props.token} role = {this.props.user} myMovie = {this.state.movieList}/></Route>
+            <Route exact path = "/login"><MovieTable token = {this.props.token} weekly = {this.state.weeklyList} role = {this.props.user} myMovie = {this.state.movieList}/></Route>
+            <Route exact path = "/movie"><MovieTable token = {this.props.token} weekly = {this.state.weeklyList} role = {this.props.user} myMovie = {this.state.movieList}/></Route>
             <Route exact path = "/favorites"><FavoriteTable token = {this.props.token}
-             role = {this.props.user}/></Route>
+             role = {this.props.user} weekly = {this.state.weeklyList}/></Route>
         </Switch>
             )
         }

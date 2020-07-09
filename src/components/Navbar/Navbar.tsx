@@ -65,6 +65,7 @@ type clearToken = {
         prop:{
             color:"white",
             textDecoration:"none"
+        
         }
       }));
       

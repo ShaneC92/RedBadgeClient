@@ -11,32 +11,6 @@ import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
 
 
-// type logOut = {
-//     logOut: any,
-//     setLogout: any
-// }
-// type clearToken = {
-//     clearToken: any,
-//     log:string
-// }
-
-// class Navbar extends React.Component<clearToken> {
-//     constructor(props: clearToken){
-//         super(props)
-//     }
-
-    
-//     // history = useHistory();
-
-
-//     render() {
-//         return(
-//             <div>
-//                 <button onClick={this.props.clearToken}>Logout</button>
-//             </div>
-//         )
-//     }
-// }
 type clearToken = {
         clearToken: any,
         log:string,
@@ -112,7 +86,7 @@ const Navbar: React.FC<clearToken> = (props:clearToken)=>{
           setAnchorEl(null);
         }
         return(
-          <MenuItem onClick={clickMe}>Favorites</MenuItem>
+          <MenuItem id = "fontMe1" onClick={clickMe}>Favorites</MenuItem>
         )
       }
       else{
@@ -142,7 +116,7 @@ const Navbar: React.FC<clearToken> = (props:clearToken)=>{
           setAnchorEl(null);
         }
         return(
-          <MenuItem onClick={clickMe}>Ur-A-Critic</MenuItem>
+          <MenuItem id = "fontMe" onClick={clickMe}>Ur-A-Critic</MenuItem>
         )
       }
       else{
@@ -161,7 +135,7 @@ const Navbar: React.FC<clearToken> = (props:clearToken)=>{
                 <Toolbar>
                   <Typography variant="h6" className={classes.title}>
                   <IconButton edge="start" className={classes.bttn} color="inherit" aria-label="menu">
-                  <Button aria-controls="simple-menu" aria-haspopup="true" onClick={handleClick}>
+                  <Button aria-controls="simple-menu" aria-haspopup="true" id = "font" onClick={handleClick}>
                       {props.username}
                   </Button>
                   <Menu

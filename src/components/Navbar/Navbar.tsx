@@ -10,47 +10,16 @@ import IconButton from '@material-ui/core/IconButton';
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
 
-
-// type logOut = {
-//     logOut: any,
-//     setLogout: any
-// }
-// type clearToken = {
-//     clearToken: any,
-//     log:string
-// }
-
-// class Navbar extends React.Component<clearToken> {
-//     constructor(props: clearToken){
-//         super(props)
-//     }
-
-    
-//     // history = useHistory();
-
-
-    // render() {
-    //     return(
-    //         <div>    
-    //             <button onClick={this.props.clearToken}>Logout</button>     
-    //         </div>
-    //     )
-    // render() {
-        // return(
-        //      <div>
-        //          <button onClick={this.props.clearToken}>Logout</button>
-        //      </div>
-        // )
-        // }
 type clearToken = {
         clearToken: any,
         log:string,
-        username:string
+        username:string,
+        role:string
     }
 
     const useStyles = makeStyles((theme) => ({
         root: {
-          flexGrow: 1,
+          flexGrow: 1
         },
         menuButton: {
           marginRight: theme.spacing(2),
@@ -76,7 +45,7 @@ const Navbar: React.FC<clearToken> = (props:clearToken)=>{
       setAnchorEl(event.currentTarget);
     };
     const handleClose = () => {
-      if(props.username === "HOME"){
+      if(props.username === "Ur-A-Critic"){
         alert("You must log in first");
       }
       else{
@@ -87,7 +56,7 @@ const Navbar: React.FC<clearToken> = (props:clearToken)=>{
       setAnchorEl(null);
     };
     const handleClose1 = () => {
-      if(props.username === "HOME"){
+      if(props.username === "Ur-A-Critic"){
         alert("You must log in first");
       }
       setAnchorEl(null);
@@ -111,7 +80,7 @@ const Navbar: React.FC<clearToken> = (props:clearToken)=>{
         }
     }
     const favorite = ()=>{
-      if(props.username === "HOME"){
+      if(props.username === "Ur-A-Critic"){
         const clickMe = ()=>{
           alert("You must log in first");
           setAnchorEl(null);
@@ -125,19 +94,29 @@ const Navbar: React.FC<clearToken> = (props:clearToken)=>{
         const clickMe = () =>{
           setAnchorEl(null);
         }
-        return(
-          <Link to = "/favorites"><MenuItem onClick = {clickMe}>Favorites</MenuItem></Link>
-        )
+        console.log("User role from navbar",props.role);
+        if(props.role === "User"){
+
+            return(
+              <Link to = "/favorites"><MenuItem onClick = {clickMe}>Favorites</MenuItem></Link>
+            )
+        }
+        else{
+          return(
+            <Link to = "/members"><MenuItem onClick = {clickMe}>Member</MenuItem></Link>
+          )
+          
+        }
       }
     }
     const home = () =>{
-      if(props.username === "HOME"){
+      if(props.username === "Ur-A-Critic"){
         const clickMe = ()=>{
           alert("You must log in first");
           setAnchorEl(null);
         }
         return(
-          <MenuItem onClick={clickMe}>Home</MenuItem>
+          <MenuItem onClick={clickMe}>Ur-A-Critic</MenuItem>
         )
       }
       else{

@@ -1,7 +1,6 @@
 import React from "react";
 import IconButton from '@material-ui/core/IconButton';
 import DeleteIcon from '@material-ui/icons/Delete';
-
 type Token = {
     token: any,
     myMovie:any,
@@ -23,7 +22,7 @@ class MovieTable extends React.Component<Token,{}>{
                     })
                 })
                 .then(()=>{
-                    alert(`${movieID} deleted`);
+                    this.props.fetchMovies();
                 })
             }
             if(condition.movie){
@@ -34,10 +33,10 @@ class MovieTable extends React.Component<Token,{}>{
                                 <td>{movie.movieTitle}</td>
                                 <td>{movie.genre}</td>
                                 <td>{movie.popularity}</td>
-                                <td>{movie.releaseDate}</td>
                                 <td>{movie.runTime}m</td>
+                                <td id = "release">{movie.releaseDate}</td>
                                 <td>{movie.description}</td>
-                                <td><IconButton aria-label="delete" onClick = {()=>{
+                                <td><IconButton style = {{color:"white"}}aria-label="delete" onClick = {()=>{
                                     deleteMovie(movie.id);
                                 }}><DeleteIcon />
                                 </IconButton></td>
@@ -48,18 +47,20 @@ class MovieTable extends React.Component<Token,{}>{
             }
     render(){
         return(
-            <table className="table" style = {{width: "70%",margin:"auto"}}>
-                <thead className="tableHead">
-                    <th></th>
+            <table style = {{width: "90%",margin:"auto", border:"1px solid black"}}>
+                <thead className = "favoriteHeader">
+                    <th>Poster</th>
                     <th>Movie Title</th>
                     <th>Genre</th>
                     <th>Popularity</th>
-                    <th>Release Date</th>
                     <th>Run Time</th>
+                    <th>Release Date</th>
                     <th>Description</th>
+                    <th></th>
                 </thead>
-                <tbody>
+                <tbody className = "favoriteBody">
                     {this.movieList()}
+                    {/* {this.props.fetchMovies()} */}
                 </tbody>
             </table>
         )

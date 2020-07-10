@@ -25,7 +25,7 @@ class Main extends React.Component <{},states>{
             sessionToken: "",
             login: "LOGIN",
             role:"",
-            firstName:"HOME"
+            firstName:"Ur-A-Critic"
         }
     }
     // componentDidMount(){
@@ -56,7 +56,7 @@ class Main extends React.Component <{},states>{
         localStorage.clear();
         this.setState({sessionToken: ('')});
         this.setState({login:"LOGIN"});
-        this.setState({firstName:"HOME"});
+        this.setState({firstName:"Ur-A-Critic"});
     }
 
     updateLog = (log:string)=>{
@@ -91,7 +91,7 @@ class Main extends React.Component <{},states>{
         return(
             <div>
                 <Router>
-                    <Navbar clearToken={this.clearToken} log = {this.state.login} username = {this.state.firstName} />
+                    <Navbar clearToken={this.clearToken} log = {this.state.login} username = {this.state.firstName} role = {this.state.role} />
                     {this.updateView()}
                 </Router>
             </div>

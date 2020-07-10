@@ -12,3 +12,11 @@ border: 1px solid #dddddd;
 .userTable tr:nth-child(even){
     background-color: #dddddd;
 }
+@font-face {
+  font-family: Movies;
+  src: url(../../asset/Movies.ttf);
+}
+#fontFamily{
+  font-family: Movies;
+  margin-top: 2%;
+}

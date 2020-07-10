@@ -24,31 +24,31 @@ class MovieTable extends React.Component<Token, {}>{
                 .then(() => {
                     this.props.fetchMovies();
                 })
-        }
-        if (condition.movie) {
-            return ((condition.movie.map((movie: any, index: number) => {
-                return (
-                    <tr key={index}>
-                        <td><img style={{ height: "200px", width: "150px" }} src={`https://image.tmdb.org/t/p/w500${movie.poster}`} alt="" /></td>
-                        <td>{movie.movieTitle}</td>
-                        <td>{movie.genre}</td>
-                        <td>{movie.popularity}</td>
-                        <td>{movie.runTime}m</td>
-                        <td id="release">{movie.releaseDate}</td>
-                        <td>{movie.description}</td>
-                        <td><IconButton style={{ color: "white" }} aria-label="delete" onClick={() => {
-                            deleteMovie(movie.id);
-                        }}><DeleteIcon />
-                        </IconButton></td>
-                    </tr>
-                )
-            })))
-        }
-    }
-    render() {
-        return (
-            <table style={{ width: "90%", margin: "auto", border: "1px solid black", marginTop: "15px"}}>
-                <thead className="favoriteHeader">
+            }
+            if(condition.movie){
+                    return((condition.movie.map((movie:any,index:number)=>{
+                        return(
+                            <tr key = {index}>
+                                <td><img style = {{height: "200px",width:"150px"}}src = {`https://image.tmdb.org/t/p/w500${movie.poster}`} alt = ""/></td>
+                                <td>{movie.movieTitle}</td>
+                                <td>{movie.genre}</td>
+                                <td>{movie.popularity}</td>
+                                <td>{movie.runTime}m</td>
+                                <td id = "release">{movie.releaseDate}</td>
+                                <td>{movie.description}</td>
+                                <td><IconButton style = {{color:"white"}}aria-label="delete" onClick = {()=>{
+                                    deleteMovie(movie.id);
+                                }}><DeleteIcon />
+                                </IconButton></td>
+                            </tr>
+                        )
+                    })))
+                }
+            }
+    render(){
+        return(
+            <table style = {{width: "90%",margin:"auto", border:"1px solid black",marginTop:"15px"}}>
+                <thead className = "favoriteHeader">
                     <th>Poster</th>
                     <th>Movie Title</th>
                     <th>Genre</th>

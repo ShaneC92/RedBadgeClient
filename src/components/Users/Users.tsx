@@ -51,7 +51,7 @@ class UserTable extends React.Component<Token,{}>{
         return(
             <div>
 
-                <h1>List of members</h1>
+                <h1 id = "fontFamily">List of members</h1>
                 <table className = "userTable">
                     <thead>
                         <th>First Name</th>

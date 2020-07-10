@@ -1,6 +1,7 @@
 import React from 'react';
 import './favMovie.css';
 import FavTable from "./Favtable";
+import Footer from "../Footer";
 type Token = {
     token: any,
     role: string,
@@ -36,9 +37,16 @@ class favMovie extends React.Component<Token, myMovie> {
         this.fetchMovies();
     }
 
-    render() {
-        return (
-            <FavTable token={this.props.token} myMovie={this.state.myMovie} fetchMovies={this.fetchMovies} weekly={this.props.weekly} />
+    render(){
+        return(
+            <div>
+                <div>
+
+                    <FavTable token = {this.props.token} myMovie = {this.state.myMovie}
+                    fetchMovies = {this.fetchMovies} weekly = {this.props.weekly}/>
+                </div>
+                <div> <Footer/></div>
+            </div>
         )
     }
 }

@@ -47,7 +47,7 @@ class MovieTable extends React.Component<Token, {}>{
     }
     render() {
         return (
-            <table style={{ width: "90%", margin: "auto", border: "1px solid black" }}>
+            <table style={{ width: "90%", margin: "auto", border: "1px solid black", marginTop: "15px"}}>
                 <thead className="favoriteHeader">
                     <th>Poster</th>
                     <th>Movie Title</th>

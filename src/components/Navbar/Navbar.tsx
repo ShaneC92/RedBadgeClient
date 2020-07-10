@@ -11,32 +11,6 @@ import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
 
 
-// type logOut = {
-//     logOut: any,
-//     setLogout: any
-// }
-// type clearToken = {
-//     clearToken: any,
-//     log:string
-// }
-
-// class Navbar extends React.Component<clearToken> {
-//     constructor(props: clearToken){
-//         super(props)
-//     }
-
-
-//     // history = useHistory();
-
-
-//     render() {
-//         return(
-//             <div>
-//                 <button onClick={this.props.clearToken}>Logout</button>
-//             </div>
-//         )
-//     }
-// }
 type clearToken = {
   clearToken: any,
   log: string,

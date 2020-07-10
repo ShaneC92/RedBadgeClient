@@ -9,6 +9,7 @@ import Button from '@material-ui/core/Button';
 import IconButton from '@material-ui/core/IconButton';
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
+import Shane from './Shane/Shane';
 
 
 type clearToken = {
@@ -148,6 +149,7 @@ const Navbar: React.FC<clearToken> = (props:clearToken)=>{
                     {home()}
                    {favorite()}
                   </Menu>
+                  <Shane />
                   </IconButton>
                   </Typography>
                   <Button color="inherit">{logChange()}</Button>

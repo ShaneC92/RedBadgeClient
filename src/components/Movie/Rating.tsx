@@ -24,28 +24,28 @@ const useStyles = makeStyles({
   },
 });
 type stateVariable = {
-  value:number|null,
-  hover:any
+  value: number | null,
+  hover: any
 }
 type prop = {
-  vote:number
+  vote: number
 }
 
-export default class HoverRating extends React.Component<prop,stateVariable> {
-  constructor(props:prop){
+export default class HoverRating extends React.Component<prop, stateVariable> {
+  constructor(props: prop) {
     super(props);
     this.state = {
-      value:2,
-      hover:-1
+      value: 2,
+      hover: -1
     }
   }
-  render(){
+  render() {
     return (
       <div className="this.classes.root">
         <Rating
           name="read-only"
           value={this.props.vote}
-          max = {10}
+          max={10}
           precision={0.5}
           readOnly
         />

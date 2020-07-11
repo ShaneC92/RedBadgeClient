@@ -7,7 +7,7 @@ import '.Weekly.css';
 class WeeklyMovie extends React.Component {
 
     render() {
-        return(
+        return (
             <div>
                 <h1>Weekly Movies</h1>
             </div>

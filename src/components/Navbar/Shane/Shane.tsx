@@ -51,7 +51,7 @@ class Shane extends React.Component<{}, AcceptedProps> {
         componentDidMount = () => {
             console.log("Component Mounted")
     
-            fetch('http://taco-randomizer.herokuapp.com/random/')
+            fetch('https://taco-randomizer.herokuapp.com/random/')
                 .then(res => res.json())
                 .then(json => {
                     console.log(json);

@@ -37,7 +37,7 @@ class Mikaela extends React.Component<{},Bored> {
   };
 
   componentDidMount = () =>{
-          fetch(`http://www.boredapi.com/api/activity?type:type`)
+          fetch(`https://www.boredapi.com/api/activity?type:type`)
             .then(data=>data.json())
             .then(json=>{
                 console.log(json);

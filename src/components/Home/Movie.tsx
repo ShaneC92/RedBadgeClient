@@ -32,7 +32,7 @@ class Movie extends React.Component<Token, stateVariable>{
         }
     }
     weeklyAdded: any = () => {
-        fetch(`http://localhost:3000/weekly/movies`, {
+        fetch(`${APIURL}/weekly/movies`, {
             method: "GET",
             headers: new Headers({
                 "Content-Type": "application/json",
@@ -47,7 +47,7 @@ class Movie extends React.Component<Token, stateVariable>{
             })
     }
     weeklyMovie: any = () => {
-        fetch(`http://localhost:3000/weekly/movies`, {
+        fetch(`${APIURL}/weekly/movies`, {
             method: "GET",
             headers: new Headers({
                 "Content-Type": "application/json",
@@ -63,7 +63,7 @@ class Movie extends React.Component<Token, stateVariable>{
     }
     componentDidMount = () => {
         console.log("This data is from movie.tsx");
-        fetch(`http://localhost:3000/movie/movie`, {
+        fetch(`${APIURL}/movie/movie`, {
             method: "GET",
             headers: new Headers({
                 "Content-Type": "application/json",

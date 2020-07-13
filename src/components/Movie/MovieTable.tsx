@@ -43,7 +43,7 @@ class MovieTable extends React.Component<Token,stateVariable>{
 
             if(this.props.role === "User"){
                 return(
-                    fetch(`http://localhost:3000/favorites/favorites`,{
+                    fetch(`${APIURL}/favorites/favorites`,{
                         method: "POST",
                         body:JSON.stringify({poster:poster,
                                             movieTitle:movieTitle,
@@ -62,7 +62,7 @@ class MovieTable extends React.Component<Token,stateVariable>{
             }
             else{
                 return(
-                    fetch(`http://localhost:3000/weekly/postMovie`,{
+                    fetch(`${APIURL}/weekly/postMovie`,{
                         method: "POST",
                         body:JSON.stringify({poster:poster,
                                             movieTitle:movieTitle,
@@ -90,7 +90,7 @@ class MovieTable extends React.Component<Token,stateVariable>{
             let condition = this.props.weekly.movies;
             console.log("Weekly movies",condition);
             const deleteWeekly = (movieID:number)=>{
-                fetch(`http://localhost:3000/weekly/movieList/${movieID}`,{
+                fetch(`${APIURL}/weekly/movieList/${movieID}`,{
                     method: "DELETE",
                     headers: new Headers({
                         "Content-Type": "application/json",
@@ -187,7 +187,7 @@ class MovieTable extends React.Component<Token,stateVariable>{
 
             if(this.props.role === "User"){
                 return(
-                        fetch(`http://localhost:3000/favorites/favorites`,{
+                        fetch(`${APIURL}/favorites/favorites`,{
                             method: "POST",
                             body:JSON.stringify({poster:poster,
                                                 movieTitle:movieTitle,
@@ -205,7 +205,7 @@ class MovieTable extends React.Component<Token,stateVariable>{
             }
             else{
                 return(
-                    fetch(`http://localhost:3000/weekly/postMovie`,{
+                    fetch(`${APIURL}/weekly/postMovie`,{
                         method: "POST",
                         body:JSON.stringify({poster:poster,
                                             movieTitle:movieTitle,

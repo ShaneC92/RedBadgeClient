@@ -35,7 +35,7 @@
   }
 
   .image {
-      background-image: url(https://source.unsplash.com/collection/10534533) !important;
+      background-image: url(https://wallpapertag.com/wallpaper/full/6/0/d/605188-cool-movie-posters-wallpapers-1920x1080.jpg) !important;
       background-repeat: no-repeat !important;
       background-size: cover !important;
       background-position: center !important;
@@ -71,3 +71,11 @@ body{
       margin: auto !important;
       margin-top: 25px !important;
   }
+
+  body{
+    background: linear-gradient(90deg, rgba(91,153,161,1) 0%, #1976D2 71%);
+}
+
+  /* .MuiSvgIcon-root {
+    color: red;
+  } */

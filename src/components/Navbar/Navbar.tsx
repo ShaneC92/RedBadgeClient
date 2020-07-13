@@ -13,7 +13,6 @@ import John from "./John";
 import Shane from './Shane/Shane';
 
 
-
 type clearToken = {
         clearToken: any,
         log:string,
@@ -38,6 +37,7 @@ type clearToken = {
         prop:{
             color:"white",
             textDecoration:"none"
+        
         }
       }));
       
@@ -163,8 +163,8 @@ const Navbar: React.FC<clearToken> = (props:clearToken)=>{
                     open={Boolean(anchorEl)}
                     onClose={handleClose}
                   >
-                    {home()}
-                   {favorite()}
+                  {home()}
+                  {favorite()}
                   </Menu>
                   <Shane />
                   </IconButton>

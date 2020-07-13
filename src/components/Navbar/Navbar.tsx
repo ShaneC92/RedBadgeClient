@@ -114,7 +114,7 @@ const Navbar: React.FC<clearToken> = (props:clearToken)=>{
           return(
             <div>
               <Link to = "/members"><MenuItem onClick = {clickMe}>Member</MenuItem></Link>
-              <MenuItem onClick = {customClickMe}>Assigned Feature</MenuItem>
+              <MenuItem onClick = {customClickMe}>John</MenuItem>
             </div>
           )
           

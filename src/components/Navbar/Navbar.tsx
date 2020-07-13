@@ -11,6 +11,7 @@ import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
 import John from "./John";
 import Shane from './Shane/Shane';
+import Mikaela from './Mikaela';
 
 
 type clearToken = {
@@ -117,7 +118,7 @@ const Navbar: React.FC<clearToken> = (props:clearToken)=>{
           return(
             <div>
               <Link to = "/members"><MenuItem onClick = {clickMe}>Member</MenuItem></Link>
-              <MenuItem onClick = {customClickMe}>Assigned Feature</MenuItem>
+              <MenuItem onClick = {customClickMe}>John</MenuItem>
             </div>
           )
           
@@ -167,6 +168,7 @@ const Navbar: React.FC<clearToken> = (props:clearToken)=>{
                   {favorite()}
                   </Menu>
                   <Shane />
+                  <Mikaela/>
                   </IconButton>
                   </Typography>
                   <Button color="inherit">{logChange()}</Button>

@@ -1,27 +1,28 @@
 import React from "react";
 import IconButton from '@material-ui/core/IconButton';
 import DeleteIcon from '@material-ui/icons/Delete';
+import APIURL from '../helpers/environment';
 type Token = {
     token: any,
-    myMovie:any,
-    fetchMovies:any,
-    weekly:any
+    myMovie: any,
+    fetchMovies: any,
+    weekly: any
 }
 
-class MovieTable extends React.Component<Token,{}>{
-        
-        movieList: any = () =>{
-            console.log(this.props.weekly);
-            let condition = this.props.myMovie;
-            const deleteMovie = (movieID:number)=>{
-                fetch(`http://localhost:3000/favorites/${movieID}`,{
-                    method: "DELETE",
-                    headers: new Headers({
-                        "Content-Type": "application/json",
-                        "Authorization": this.props.token
-                    })
+class MovieTable extends React.Component<Token, {}>{
+
+    movieList: any = () => {
+        console.log(this.props.weekly);
+        let condition = this.props.myMovie;
+        const deleteMovie = (movieID: number) => {
+            fetch(`http://localhost:3000/favorites/${movieID}`, {
+                method: "DELETE",
+                headers: new Headers({
+                    "Content-Type": "application/json",
+                    "Authorization": this.props.token
                 })
-                .then(()=>{
+            })
+                .then(() => {
                     this.props.fetchMovies();
                 })
             }
@@ -58,7 +59,7 @@ class MovieTable extends React.Component<Token,{}>{
                     <th>Description</th>
                     <th></th>
                 </thead>
-                <tbody className = "favoriteBody">
+                <tbody className="favoriteBody">
                     {this.movieList()}
                     {/* {this.props.fetchMovies()} */}
                 </tbody>

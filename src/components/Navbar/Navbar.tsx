@@ -10,6 +10,9 @@ import IconButton from '@material-ui/core/IconButton';
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
 import John from "./John";
+import Shane from './Shane/Shane';
+import Mikaela from './Mikaela';
+
 
 type clearToken = {
         clearToken: any,
@@ -35,6 +38,7 @@ type clearToken = {
         prop:{
             color:"white",
             textDecoration:"none"
+        
         }
       }));
       
@@ -160,9 +164,11 @@ const Navbar: React.FC<clearToken> = (props:clearToken)=>{
                     open={Boolean(anchorEl)}
                     onClose={handleClose}
                   >
-                    {home()}
-                   {favorite()}
+                  {home()}
+                  {favorite()}
                   </Menu>
+                  <Shane />
+                  <Mikaela/>
                   </IconButton>
                   </Typography>
                   <Button color="inherit">{logChange()}</Button>

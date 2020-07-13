@@ -2,6 +2,8 @@ import React from 'react';
 import './favMovie.css';
 import FavTable from "./Favtable";
 import Footer from "../Footer";
+import APIURL from '../helpers/environment';
+
 type Token = {
     token: any,
     role: string,

@@ -21,7 +21,7 @@ class favMovie extends React.Component<Token, myMovie> {
         }
     }
     fetchMovies = () => {
-        fetch(`http://localhost:3000/favorites/favorites`, {
+        fetch(`${APIURL}/favorites/favorites`, {
             method: "GET",
             headers: new Headers({
                 "Content-Type": "application/json",

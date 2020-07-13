@@ -1,5 +1,6 @@
 import React from "react";
 import { Modal, ModalHeader, ModalBody, Form, FormGroup, Label, Input, Button } from "reactstrap";
+import APIURL from '../helpers/environment';
 
 type props = {
     memberUpdate: any,
@@ -28,7 +29,7 @@ class MemberEdit extends React.Component<props, stateVariables>{
     memberUpdate: any = (e: any) => {
         e.preventDefault();
         const id = this.props.memberUpdate.id;
-        fetch(`http://localhost:3000/user/memberUpdate/${id}`, {
+        fetch(`${APIURL}/user/memberUpdate/${id}`, {
             method: "PUT",
             body: JSON.stringify({ firstName: this.state.firstName, lastName: this.state.lastName }),
             headers: new Headers({

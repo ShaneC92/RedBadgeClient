@@ -59,7 +59,7 @@ class Main extends React.Component<Token, Movies>{
         })
     }
     weeklyMovie: any = () => {
-        fetch(`http://localhost:3000/weekly/movies`, {
+        fetch(`${APIURL}/weekly/movies`, {
             method: "GET",
             headers: new Headers({
                 "Content-Type": "application/json",
@@ -75,7 +75,7 @@ class Main extends React.Component<Token, Movies>{
     }
     //members
     member: any = () => {
-        fetch(`http://localhost:3000/user/member`, {
+        fetch(`${APIURL}/user/member`, {
             method: "GET",
             headers: new Headers({
                 "Content-Type": "application/json",
@@ -108,7 +108,7 @@ class Main extends React.Component<Token, Movies>{
                             description: json.overview,
                             voting: json.vote_average
                         })
-                        fetch(`http://localhost:3000/movie/movie`, {
+                        fetch(`${APIURL}/movie/movie`, {
                             method: "POST",
                             body: JSON.stringify({
                                 poster: this.state.poster,
@@ -128,7 +128,7 @@ class Main extends React.Component<Token, Movies>{
                     }
                 });
         }
-        fetch(`http://localhost:3000/movie/movie`, {
+        fetch(`${APIURL}/movie/movie`, {
             method: "GET",
             headers: new Headers({
                 "Content-Type": "application/json",

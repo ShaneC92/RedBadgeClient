@@ -82,7 +82,7 @@ class Signup extends React.Component<props, MyVariables>{
               }
               else {
                 this.setState({ message4: "" });
-                fetch(`http://localhost:3000/user/signup`, {
+                fetch(`${APIURL}/user/signup`, {
                   method: "POST",
                   body: JSON.stringify({
                     firstName: this.state.firstName,

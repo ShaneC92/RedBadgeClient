@@ -13,7 +13,7 @@ type Token = {
 class UserTable extends React.Component<Token,{}>{
     users:any = () =>{
         const deleteMember = (memberId:number,memberEmail:any)=>{
-            fetch(`http://localhost:3000/user/deleteUser/${memberId}`,{
+            fetch(`${APIURL}/user/deleteUser/${memberId}`,{
                     method: "DELETE",
                     headers: new Headers({
                         "Content-Type": "application/json",

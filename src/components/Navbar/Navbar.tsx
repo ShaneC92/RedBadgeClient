@@ -9,7 +9,7 @@ import Button from '@material-ui/core/Button';
 import IconButton from '@material-ui/core/IconButton';
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
-
+import John from "./John";
 
 type clearToken = {
         clearToken: any,
@@ -40,6 +40,7 @@ type clearToken = {
       
 const Navbar: React.FC<clearToken> = (props:clearToken)=>{
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
+  const [condition,setCondition] = React.useState(false);
     const classes = useStyles();
     const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
       setAnchorEl(event.currentTarget);
@@ -94,6 +95,14 @@ const Navbar: React.FC<clearToken> = (props:clearToken)=>{
         const clickMe = () =>{
           setAnchorEl(null);
         }
+
+        //////////////////////////////////////////////////////////////////////////////////////////////////////////
+        //assigned feature
+        const customClickMe = () =>{
+          setAnchorEl(null);
+          setCondition(true);
+        }
+        ///////////////////////////////////////////////////////////////////////////////////////////////////////////
         console.log("User role from navbar",props.role);
         if(props.role === "User"){
 
@@ -103,11 +112,17 @@ const Navbar: React.FC<clearToken> = (props:clearToken)=>{
         }
         else{
           return(
-            <Link to = "/members"><MenuItem onClick = {clickMe}>Member</MenuItem></Link>
+            <div>
+              <Link to = "/members"><MenuItem onClick = {clickMe}>Member</MenuItem></Link>
+              <MenuItem onClick = {customClickMe}>Assigned Feature</MenuItem>
+            </div>
           )
           
         }
       }
+    }
+    const conditionOff = () =>{
+      setCondition(false);
     }
     const home = () =>{
       if(props.username === "Ur-A-Critic"){
@@ -153,9 +168,10 @@ const Navbar: React.FC<clearToken> = (props:clearToken)=>{
                   <Button color="inherit">{logChange()}</Button>
                 </Toolbar>
               </AppBar>
+              {condition?<John showMe = {true} condition = {conditionOff}/>:null}
             </div>
                     
     )
 }
 
-export default Navbar;
+export default Navbar; 

@@ -13,10 +13,12 @@ import Avatar from '@material-ui/core/Avatar';
 import IconButton from '@material-ui/core/IconButton';
 import Typography from '@material-ui/core/Typography';
 import { red } from '@material-ui/core/colors';
+import DeleteIcon from '@material-ui/icons/Delete';
 import FavoriteIcon from '@material-ui/icons/Favorite';
 import ShareIcon from '@material-ui/icons/Share';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
+import Footer from "../Footer";
 
 type Token = {
     token: any,
@@ -140,20 +142,39 @@ class MovieTable extends React.Component<Token,stateVariable>{
             }
             else{
                 return((condition.map((movie:any,index:number)=>{
+                    const imageLink = `https://image.tmdb.org/t/p/w500${movie.poster}`;
                     return(
-                        <tr key = {index}>
-                            <td><img style = {{height: "100px",width:"100px"}}src = {`https://image.tmdb.org/t/p/w500${movie.poster}`} alt = ""/></td>
-                            <td>{movie.movieTitle}</td>
-                            <td>{movie.genre}</td>
-                            <td>{movie.popularity}</td>
-                            <td>{movie.releaseDate}</td>
-                            <td>{movie.runTime}m</td>
-                            <td>{movie.description}</td>
-                            <td>{movie.voting}</td>
-                            <td><button onClick = {()=>{
-                                deleteWeekly(movie.id);
-                            }}>Delete</button></td>
-                        </tr>
+                        <Card className = "cardroot">
+                            <CardHeader style = {{color:"white"}} avatar = {
+                                <Avatar aria-label = "recipe" className = "avatar">
+                                    {movie.Genre}
+                                </Avatar>
+                            
+                            }
+                            action = {
+                                <IconButton aria-label = "settings">
+                                    <MoreVertIcon/>
+                                </IconButton>
+                            }
+                            title = {movie.movieTitle}
+                            subheader = {movie.releaseDate}
+                            />
+                            <CardMedia className = "media" image = {imageLink} style = {{ height: "50px", display: "block",marginLeft:"auto",
+                        marginRight:"auto",width:"250px", objectFit:"contain"}} title = {movie.movieTitle}/>
+                            <CardContent>
+                                {/* pass voting value to this component */}
+                                <Rating vote = {movie.voting}/>
+                                <Typography variant="body2" className = "colorMe" color="textSecondary" component="p">
+                                    {movie.description}
+                                </Typography>
+                            </CardContent>
+                            <CardActions disableSpacing>
+                            <IconButton style = {{color:"white"}}aria-label="delete" onClick = {()=>{
+                                    deleteWeekly(movie.id);
+                                }}><DeleteIcon />
+                                </IconButton>
+                            </CardActions>
+                        </Card>
                     )
                 })))
             }
@@ -250,20 +271,40 @@ class MovieTable extends React.Component<Token,stateVariable>{
             }
             else{
                 return((condition.movie.map((movie:any,index:number)=>{
+                    const imageLink = `https://image.tmdb.org/t/p/w500${movie.poster}`;
                     return(
-                        <tr key = {index}>
-                            <td><img style = {{height: "100px",width:"100px"}}src = {`https://image.tmdb.org/t/p/w500${movie.poster}`} alt = ""/></td>
-                            <td>{movie.movieTitle}</td>
-                            <td>{movie.genre}</td>
-                            <td>{movie.popularity}</td>
-                            <td>{movie.releaseDate}</td>
-                            <td>{movie.runTime}m</td>
-                            <td>{movie.description}</td>
-                            <td>{movie.voting}</td>
-                            <td><button onClick = {()=>{
-                                 handleClick(movie.poster,movie.movieTitle,movie.genre,movie.popularity,movie.releaseDate,movie.runTime,movie.description,movie.voting);
-                            }}>Weekly</button></td>
-                        </tr>
+                        <Card className = "cardroot">
+                            <CardHeader style = {{color:"white"}} avatar = {
+                                <Avatar aria-label = "recipe" className = "avatar">
+                                    {movie.genre}
+                                </Avatar>
+                            
+                            }
+                            action = {
+                                <IconButton aria-label = "settings">
+                                    <MoreVertIcon/>
+                                </IconButton>
+                            }
+                            title = {movie.movieTitle}
+                            subheader = {movie.releaseDate}
+                            />
+                            <CardMedia className = "media" image = {imageLink} style = {{ height: "50px", display: "block",marginLeft:"auto",
+                        marginRight:"auto",width:"250px", objectFit:"contain"}} title = {movie.movieTitle}/>
+                            <CardContent>
+                                {/* pass vote average value to this component */}
+                                <Rating vote = {movie.voting}/>
+                                <Typography variant="body2" className = "colorMe" color="textSecondary" component="p">
+                                    {movie.description}
+                                </Typography>
+                            </CardContent>
+                            <CardActions disableSpacing>
+                                <IconButton aria-label = "add to Weekly">
+                                    <FavoriteIcon style = {{color:"lightGray"}}onClick = {()=>{
+                                        handleClick(movie.poster,movie.movieTitle,movie.genre,movie.popularity,movie.releaseDate,movie.runTime,movie.description,movie.voting);
+                                    }}/>
+                                </IconButton>
+                            </CardActions>
+                        </Card>
                     )
                 })))
             }
@@ -271,20 +312,24 @@ class MovieTable extends React.Component<Token,stateVariable>{
     }
     render(){
         return(
-            <div className = "movieListShow">
-                <div>
+            <div>
 
-                    <h1>Featured Movies</h1>
-                    <div className = "scrollBar">
-                            {this.movieList()}
+                <div className = "movieListShow">
+                    <div>
+
+                        <h1 className = "movieFont">Featured Movies</h1>
+                        <div className = "scrollBar">
+                                {this.movieList()}
+                        </div>
+                    </div>
+                    <div>
+                        <h1 className = "movieFont">Recommended for the Week</h1>
+                        <div className = "scrollBar2">
+                            {this.weeklyList()}
+                        </div>
                     </div>
                 </div>
-                <div>
-                    <h1>Recommended for the Week</h1>
-                    <div className = "scrollBar2">
-                        {this.weeklyList()}
-                    </div>
-                </div>
+                <Footer/>
             </div>
         )
     }

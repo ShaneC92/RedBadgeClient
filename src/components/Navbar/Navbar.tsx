@@ -86,7 +86,7 @@ const Navbar: React.FC<clearToken> = (props:clearToken)=>{
           setAnchorEl(null);
         }
         return(
-          <MenuItem onClick={clickMe}>Favorites</MenuItem>
+          <MenuItem id = "fontMe1" onClick={clickMe}>Favorites</MenuItem>
         )
       }
       else{
@@ -116,7 +116,7 @@ const Navbar: React.FC<clearToken> = (props:clearToken)=>{
           setAnchorEl(null);
         }
         return(
-          <MenuItem onClick={clickMe}>Ur-A-Critic</MenuItem>
+          <MenuItem id = "fontMe" onClick={clickMe}>Ur-A-Critic</MenuItem>
         )
       }
       else{
@@ -135,7 +135,7 @@ const Navbar: React.FC<clearToken> = (props:clearToken)=>{
                 <Toolbar>
                   <Typography variant="h6" className={classes.title}>
                   <IconButton edge="start" className={classes.bttn} color="inherit" aria-label="menu">
-                  <Button aria-controls="simple-menu" aria-haspopup="true" onClick={handleClick}>
+                  <Button aria-controls="simple-menu" aria-haspopup="true" id = "font" onClick={handleClick}>
                       {props.username}
                   </Button>
                   <Menu
@@ -145,8 +145,8 @@ const Navbar: React.FC<clearToken> = (props:clearToken)=>{
                     open={Boolean(anchorEl)}
                     onClose={handleClose}
                   >
-                    {home()}
-                   {favorite()}
+                  {home()}
+                  {favorite()}
                   </Menu>
                   </IconButton>
                   </Typography>

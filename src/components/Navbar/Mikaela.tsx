@@ -1,12 +1,21 @@
 import React from "react";
-import { Modal, Button } from 'antd';
+import { Modal } from 'antd';
+import 'antd/dist/antd.css';
 
-class Mikaela extends React.Component {
-  constructor(props:any){
+type Bored= {
+  activity: any,
+  type: string,
+  visible: boolean
+}
+class Mikaela extends React.Component<{},Bored> {
+  constructor(props:Bored){
     super(props);
+    this.state = {
+      visible: false,
+      activity: "",
+      type: ""
+    }
   }
-  state = { visible: false };
-
   showModal = () => {
     this.setState({
       visible: true,
@@ -14,46 +23,48 @@ class Mikaela extends React.Component {
   };
 
   handleOk = (e:any) => {
-    console.log(e);
+    //console.log(e);
     this.setState({
       visible: false,
     });
   };
 
   handleCancel = (e:any) => {
-    console.log(e);
+    //console.log(e);
     this.setState({
-      visible: false,
+      visible: false
     });
   };
+
   componentDidMount = () =>{
-          fetch(``)
           fetch(`http://www.boredapi.com/api/activity?type:type`)
             .then(data=>data.json())
             .then(json=>{
                 console.log(json);
+                this.setState({
+                  activity: json.activity,
+                  type: json.type
+              })
             })
       }
 
   render() {
     return (
       <div>
-        <Button type="primary" onClick={this.showModal}>
-          Open Modal
-        </Button>
+        <p className="Mikaela" onClick={this.showModal}>
+          Bored?
+        </p>
         <Modal
-          title="Basic Modal"
+          title="Try this activity!"
           visible={this.state.visible}
           onOk={this.handleOk}
           onCancel={this.handleCancel}
         >
-          <p>Some contents...</p>
-          <p>Some contents...</p>
-          <p>Some contents...</p>
+          <p>{this.state.activity}</p>
+          <p>Type: {this.state.type}</p>
         </Modal>
       </div>
     );
   }
 }
-
 export default Mikaela;

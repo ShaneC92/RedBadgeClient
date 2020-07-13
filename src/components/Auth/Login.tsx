@@ -64,10 +64,25 @@ class Login extends React.Component<props,MyVariables>{
     handleSubmit = (e:any)=>{
         //let myObject:any = (this); 
         e.preventDefault();
-        // console.log("Hello");
-        // console.log(this.state.firstName);
-        //console.log(myObject.state.firstName);
-        fetch(`http://localhost:3000/user/login`,{
+        if(!this.state.email){
+          this.setState({
+            setEmail: "Email must be provided"
+          })
+        }
+        else{
+          this.setState({
+            setEmail:""
+          })
+          if(!this.state.password){
+            this.setState({
+              setPassword: "Password must be provided"
+            })
+          }
+          else{
+            this.setState({
+              setPassword:""
+            })
+            fetch(`http://localhost:3000/user/login`,{
             method: "POST",
             body:JSON.stringify({
                                 email: this.state.email,
@@ -82,6 +97,8 @@ class Login extends React.Component<props,MyVariables>{
                json.sessionToken?this.props.updateLog("LOGOUT"):this.props.updateLog("LOGIN");
                //this.props.updateToken(json.data.sessionToken);
             })
+          }
+        }
     }
     componentDidMount=()=>{
       // const dom: any = document.getElementsByClassName("image")[0];
@@ -115,6 +132,7 @@ class Login extends React.Component<props,MyVariables>{
               value = {this.state.email}
               onChange = {e=>this.setState({email:e.target.value})}
             />
+            {this.state.setEmail}
             <TextField
               variant="outlined"
               margin="normal"
@@ -128,6 +146,7 @@ class Login extends React.Component<props,MyVariables>{
               value = {this.state.password}
               onChange = {e=>this.setState({password:e.target.value})}
             />
+            {this.state.setPassword}
             <Button
               type="submit"
               fullWidth

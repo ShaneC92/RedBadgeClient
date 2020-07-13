@@ -6,6 +6,7 @@ import {BrowserRouter as Router} from "react-router-dom";
 import APIURL from "./helpers/environment";
 import Home from "./Home/Movie";
 import Admin from "./Admin/Admin";
+import Footer from "./Footer";
 
 // type SessionToken = {
 //     sessionToken: string

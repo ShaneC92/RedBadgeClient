@@ -23,7 +23,7 @@ class John extends React.Component<props,stateVariable> {
         }
     }
     componentDidMount = () =>{
-        fetch("https://sv443.net/jokeapi/v2/joke/Any")
+        fetch("https://sv443.net/jokeapi/v2/joke/Programming")
             .then(data=>data.json())
             .then(json=>{
                 this.setState({

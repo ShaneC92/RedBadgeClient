@@ -30,6 +30,19 @@ class Shane extends React.Component<{}, AcceptedProps> {
         this.setState({
         visible: true,
         });
+
+        fetch('https://taco-randomizer.herokuapp.com/random/')
+        .then(res => res.json())
+        .then(json => {
+            console.log(json);
+            this.setState({
+                shell: json.shell.name,
+                mixin: json.mixin.name,
+                seasoning: json.seasoning.name,
+                condiment: json.condiment.name,
+                base_layer: json.base_layer.name,
+            })
+        })
     };
 
     handleOk = (e:any) => {
@@ -48,22 +61,22 @@ class Shane extends React.Component<{}, AcceptedProps> {
 
   //Taco
 
-        componentDidMount = () => {
-            console.log("Component Mounted")
+        // componentDidMount = () => {
+        //     console.log("Component Mounted")
     
-            fetch('https://taco-randomizer.herokuapp.com/random/')
-                .then(res => res.json())
-                .then(json => {
-                    console.log(json);
-                    this.setState({
-                        shell: json.shell.name,
-                        mixin: json.mixin.name,
-                        seasoning: json.seasoning.name,
-                        condiment: json.condiment.name,
-                        base_layer: json.base_layer.name,
-                    })
-                })
-        }
+        //     fetch('https://taco-randomizer.herokuapp.com/random/')
+        //         .then(res => res.json())
+        //         .then(json => {
+        //             console.log(json);
+        //             this.setState({
+        //                 shell: json.shell.name,
+        //                 mixin: json.mixin.name,
+        //                 seasoning: json.seasoning.name,
+        //                 condiment: json.condiment.name,
+        //                 base_layer: json.base_layer.name,
+        //             })
+        //         })
+        // }
 
 
   render() {

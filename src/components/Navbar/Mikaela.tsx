@@ -20,6 +20,16 @@ class Mikaela extends React.Component<{},Bored> {
     this.setState({
       visible: true,
     });
+    
+    fetch(`https://www.boredapi.com/api/activity?type:type`)
+            .then(data=>data.json())
+            .then(json=>{
+                console.log(json);
+                this.setState({
+                  activity: json.activity,
+                  type: json.type
+              })
+            })
   };
 
   handleOk = (e:any) => {
@@ -36,17 +46,17 @@ class Mikaela extends React.Component<{},Bored> {
     });
   };
 
-  componentDidMount = () =>{
-          fetch(`https://www.boredapi.com/api/activity?type:type`)
-            .then(data=>data.json())
-            .then(json=>{
-                console.log(json);
-                this.setState({
-                  activity: json.activity,
-                  type: json.type
-              })
-            })
-      }
+  // componentDidMount = () =>{
+  //         fetch(`https://www.boredapi.com/api/activity?type:type`)
+  //           .then(data=>data.json())
+  //           .then(json=>{
+  //               console.log(json);
+  //               this.setState({
+  //                 activity: json.activity,
+  //                 type: json.type
+  //             })
+  //           })
+  //     }
 
   render() {
     return (

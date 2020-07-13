@@ -1,0 +1,15 @@
+.favoriteHeader{
+    background-color: #408697;
+}
+.favoriteBody{
+    margin:3px;
+    padding:10px;
+    background-color: #363538;
+    color: #f6f6f6;
+}
+td{
+    padding:15px;
+}
+#release{
+    width:15%;
+}

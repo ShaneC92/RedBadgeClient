@@ -1,0 +1,81 @@
+/* const useStyles = makeStyles((theme) => ({
+    root: {
+      height: '100vh',
+    },
+    image: {
+      backgroundImage: 'url(https://source.unsplash.com/random)',
+      backgroundRepeat: 'no-repeat',
+      backgroundColor:
+        theme.palette.type === 'light' ? theme.palette.grey[50] : theme.palette.grey[900],
+      backgroundSize: 'cover',
+      backgroundPosition: 'center',
+    },
+    paper: {
+      margin: theme.spacing(8, 4),
+      display: 'flex',
+      flexDirection: 'column',
+      alignItems: 'center',
+    },
+    avatar: {
+      margin: theme.spacing(1),
+      backgroundColor: theme.palette.secondary.main,
+    },
+    form: {
+      width: '100%', // Fix IE 11 issue.
+      marginTop: theme.spacing(1),
+    },
+    submit: {
+      margin: theme.spacing(3, 0, 2),
+    },
+  })); */
+
+  .root {
+      height: 100vh !important;
+      
+  }
+
+  .image {
+      background-image: url(https://wallpapertag.com/wallpaper/full/6/0/d/605188-cool-movie-posters-wallpapers-1920x1080.jpg) !important;
+      background-repeat: no-repeat !important;
+      background-size: cover !important;
+      background-position: center !important;
+  }
+
+  .paper {
+      margin: auto !important;
+      display: flex !important;
+      flex-direction: column !important;
+      align-items: center !important;
+      height:100vh;
+      background: linear-gradient(90deg, rgba(91,153,161,1) 0%, rgba(155,210,212,0.07373371711966037) 71%);
+  }
+body{
+  background: linear-gradient(90deg, rgba(91,153,161,1) 0%, #1976D2 71%);
+}
+  .avatar {
+      margin-top: 65px !important;
+      margin: 10px;
+  }
+  .form {
+      width: 100% !important;
+      margin-top: 25px;
+      padding: 25px;
+  }
+
+  .submit {
+      margin: auto !important;
+      margin-top: 20px !important;
+  }
+
+  .login {
+      margin: auto !important;
+      margin-top: 25px !important;
+  }
+
+  body{
+    background: linear-gradient(90deg, rgba(91,153,161,1) 0%, #1976D2 71%);
+}
+
+  /* .MuiSvgIcon-root {
+    color: red;
+  } */

@@ -1,0 +1,32 @@
+.MuiAppBar-colorPrimary {
+    background: linear-gradient(90deg, rgba(91,153,161,1) 0%, rgba(155,210,212,0.07373371711966037) 71%);
+}
+@font-face {
+    font-family: Movies;
+    src: url(../../asset/Movies.ttf);
+  }
+
+#fontMe{
+    font-family: Movies;
+}
+#fontMe1{
+    font-family: Movies;
+}
+
+#font{
+    font-family: Movies !important;
+}
+
+.Shane{
+    font-family: Movies;
+    font-size: 14px;
+    padding-left: 15px;
+    margin: auto;
+}
+
+.Mikaela{
+    font-family: Movies;
+    font-size: 14px;
+    padding-left: 15px;
+    margin: auto;
+}

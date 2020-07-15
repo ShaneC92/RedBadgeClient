@@ -16,6 +16,7 @@ class MovieTable extends React.Component<Token, {}>{
         let condition = this.props.myMovie;
         const deleteMovie = (movieID: number) => {
             fetch(`${APIURL}/favorites/${movieID}`, {
+
                 method: "DELETE",
                 headers: new Headers({
                     "Content-Type": "application/json",

@@ -5,7 +5,8 @@ import { Switch, Route } from "react-router-dom";
 import MemberEdit from "./MemberEdit";
 import APIURL from "../helpers/environment";
 type Token = {
-    token: any
+    token: any,
+    name: number
 }
 type Movies = {
     poster: string,
@@ -20,7 +21,9 @@ type Movies = {
     weeklyList: any,
     listOfUsers: any,
     updateActive: boolean,
-    memberUpdate: any
+    memberUpdate: any,
+    commentUpdate:any,
+    comments: any
 
 }
 
@@ -40,7 +43,9 @@ class Main extends React.Component<Token, Movies>{
             weeklyList: {},
             listOfUsers: {},
             updateActive: false,
-            memberUpdate: {}
+            memberUpdate: {},
+            commentUpdate:{},
+            comments:{}
         }
     }
     editUpdateMember: any = (member: any) => {
@@ -58,8 +63,13 @@ class Main extends React.Component<Token, Movies>{
             updateActive: false
         })
     }
+    commentUpdate = (comment:any)=>{
+        this.setState({
+            commentUpdate:comment
+        })
+    }
     weeklyMovie: any = () => {
-        fetch(`http://localhost:3000/weekly/movies`, {
+        fetch(`${APIURL}/weekly/movies`, {
             method: "GET",
             headers: new Headers({
                 "Content-Type": "application/json",
@@ -75,7 +85,7 @@ class Main extends React.Component<Token, Movies>{
     }
     //members
     member: any = () => {
-        fetch(`http://localhost:3000/user/member`, {
+        fetch(`${APIURL}/user/member`, {
             method: "GET",
             headers: new Headers({
                 "Content-Type": "application/json",
@@ -88,6 +98,27 @@ class Main extends React.Component<Token, Movies>{
                     listOfUsers: memberJson
                 })
             })
+    }
+    commentPosted: any = () =>{
+        //comment fetching
+        fetch(`${APIURL}/movie/comments`, {
+            method: "GET",
+            // body: JSON.stringify({
+            //     movieId: movieID
+            //   }),
+            headers: new Headers({
+                "Content-Type": "application/json",
+                "Authorization": this.props.token
+            })
+        })
+        .then(data=>{
+            return data.json();
+        })
+        .then(comments=>{
+            this.setState({
+                comments: comments
+            })
+        })
     }
     //getting a movies from movie table
     componentDidMount = () => {
@@ -108,7 +139,7 @@ class Main extends React.Component<Token, Movies>{
                             description: json.overview,
                             voting: json.vote_average
                         })
-                        fetch(`http://localhost:3000/movie/movie`, {
+                        fetch(`${APIURL}/movie/movie`, {
                             method: "POST",
                             body: JSON.stringify({
                                 poster: this.state.poster,
@@ -128,7 +159,7 @@ class Main extends React.Component<Token, Movies>{
                     }
                 });
         }
-        fetch(`http://localhost:3000/movie/movie`, {
+        fetch(`${APIURL}/movie/movie`, {
             method: "GET",
             headers: new Headers({
                 "Content-Type": "application/json",
@@ -139,19 +170,7 @@ class Main extends React.Component<Token, Movies>{
             .then(data => {
                 this.weeklyMovie();
                 this.member();
-                // fetch(`http://localhost:3000/weekly/movies`,{
-                //     method:"GET",
-                //     headers: new Headers({
-                //         "Content-Type": "application/json",
-                //         "Authorization":this.props.token
-                //     })
-                // })
-                // .then(data=>data.json())
-                // .then(weeklyJson=>{
-                //   this.setState({
-                //       weeklyList:weeklyJson
-                //   })
-                // })
+                this.commentPosted();
                 return data.json();
             })
             .then(json => {
@@ -167,10 +186,10 @@ class Main extends React.Component<Token, Movies>{
         return (
             <Switch>
                 <Route exact path="/login">
-                    <MovieTable token={this.props.token} weeklyAdded={this.weeklyMovie} weekly={this.state.weeklyList} myMovie={this.state.movieList} role="Admin" />
+                    <MovieTable editComment = {this.commentUpdate} updateOn = {this.updateOn} name = {this.props.name} comments = {this.state.comments} commentPosted = {this.commentPosted} token={this.props.token} weeklyAdded={this.weeklyMovie} weekly={this.state.weeklyList} myMovie={this.state.movieList} role="Admin" />
                 </Route>
                 <Route exact path="/movie">
-                    <MovieTable token={this.props.token} weeklyAdded={this.weeklyMovie} weekly={this.state.weeklyList} myMovie={this.state.movieList} role="Admin" />
+                    <MovieTable editComment = {this.commentUpdate} updateOn = {this.updateOn} name = {this.props.name} comments = {this.state.comments} commentPosted = {this.commentPosted} token={this.props.token} weeklyAdded={this.weeklyMovie} weekly={this.state.weeklyList} myMovie={this.state.movieList} role="Admin" />
                 </Route>
                 <Route exact path="/members">
                     <UserTable token={this.props.token} users={this.member} userList={this.state.listOfUsers} editUpdateMember={this.editUpdateMember} updateOn={this.updateOn} />

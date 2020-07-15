@@ -1,26 +1,23 @@
 import React from 'react';
 import './Movie.css';
-import { makeStyles } from '@material-ui/core/styles';
-import Card from '@material-ui/core/Card';
-import CardActionArea from '@material-ui/core/CardActionArea';
-import CardActions from '@material-ui/core/CardActions';
-import CardContent from '@material-ui/core/CardContent';
-import CardMedia from '@material-ui/core/CardMedia';
-import Button from '@material-ui/core/Button';
-import Typography from '@material-ui/core/Typography';
 import { Switch, Route } from "react-router-dom";
 import MovieTable from "../Movie/MovieTable";
 import FavoriteTable from "../Favorites/favMovie";
 import APIURL from '../helpers/environment';
+import CommentTable from "./CommentTable";
 
 type Token = {
     token: any,
-    user: string
+    user: string,
+    name: number
 }
 type stateVariable = {
     movieList: any,
     favoriteMovieList: any,
-    weeklyList: any
+    weeklyList: any,
+    comments: any,
+    updateActive: boolean,
+    commentUpdate: any
 }
 class Movie extends React.Component<Token, stateVariable>{
     constructor(props: Token) {
@@ -28,11 +25,30 @@ class Movie extends React.Component<Token, stateVariable>{
         this.state = {
             movieList: {},
             favoriteMovieList: {},
-            weeklyList: {}
+            weeklyList: {},
+            comments: {},
+            updateActive: false,
+            commentUpdate: {}
         }
     }
+
+    updateOff = () =>{
+        this.setState({
+            updateActive: false
+        })
+    }
+    updateOn = ()=>{
+        this.setState({
+            updateActive:true
+        })
+    }
+    commentUpdate = (comment:any)=>{
+        this.setState({
+            commentUpdate: comment
+        })
+    }
     weeklyAdded: any = () => {
-        fetch(`http://localhost:3000/weekly/movies`, {
+        fetch(`${APIURL}/weekly/movies`, {
             method: "GET",
             headers: new Headers({
                 "Content-Type": "application/json",
@@ -47,7 +63,7 @@ class Movie extends React.Component<Token, stateVariable>{
             })
     }
     weeklyMovie: any = () => {
-        fetch(`http://localhost:3000/weekly/movies`, {
+        fetch(`${APIURL}/weekly/movies`, {
             method: "GET",
             headers: new Headers({
                 "Content-Type": "application/json",
@@ -61,9 +77,29 @@ class Movie extends React.Component<Token, stateVariable>{
                 })
             })
     }
+    commentPosted: any = () =>{
+        fetch(`${APIURL}/movie/comments`, {
+            method: "GET",
+            // body: JSON.stringify({
+            //     movieId: movieID
+            //   }),
+            headers: new Headers({
+                "Content-Type": "application/json",
+                "Authorization": this.props.token
+            })
+        })
+        .then(data=>{
+            return data.json();
+        })
+        .then(comments=>{
+            this.setState({
+                comments: comments
+            })
+        })
+    }
     componentDidMount = () => {
         console.log("This data is from movie.tsx");
-        fetch(`http://localhost:3000/movie/movie`, {
+        fetch(`${APIURL}/movie/movie`, {
             method: "GET",
             headers: new Headers({
                 "Content-Type": "application/json",
@@ -72,19 +108,7 @@ class Movie extends React.Component<Token, stateVariable>{
         })
             .then(data => {
                 this.weeklyAdded();
-                // fetch(`http://localhost:3000/weekly/movies`,{
-                //     method:"GET",
-                //     headers: new Headers({
-                //         "Content-Type": "application/json",
-                //         "Authorization":this.props.token
-                //     })
-                // })
-                // .then(weeklyData=>weeklyData.json())
-                // .then(weeklyJson=>{
-                //   this.setState({
-                //       weeklyList:weeklyJson
-                //   })
-                // })
+                this.commentPosted();
                 return data.json();
             })
             .then(json => {
@@ -98,9 +122,15 @@ class Movie extends React.Component<Token, stateVariable>{
     render() {
         return (
             <Switch>
-                <Route exact path="/signup"><MovieTable token={this.props.token} weeklyAdded={this.weeklyAdded} weekly={this.state.weeklyList} role={this.props.user} myMovie={this.state.movieList} /></Route>
-                <Route exact path="/login"><MovieTable token={this.props.token} weeklyAdded={this.weeklyAdded} weekly={this.state.weeklyList} role={this.props.user} myMovie={this.state.movieList} /></Route>
-                <Route exact path="/movie"><MovieTable token={this.props.token} weeklyAdded={this.weeklyAdded} weekly={this.state.weeklyList} role={this.props.user} myMovie={this.state.movieList} /></Route>
+                <Route exact path="/signup"><MovieTable editComment = {this.commentUpdate} updateOn = {this.updateOn} name = {this.props.name} comments = {this.state.comments} commentPosted = {this.commentPosted} token={this.props.token} weeklyAdded={this.weeklyAdded} weekly={this.state.weeklyList} role={this.props.user} myMovie={this.state.movieList} />
+                {this.state.updateActive ? <CommentTable commentPosted = {this.commentPosted} commentUpdate={this.state.commentUpdate} updateOff={this.updateOff} token={this.props.token} /> : null}
+                </Route>
+                <Route exact path="/login"><MovieTable  editComment = {this.commentUpdate} updateOn = {this.updateOn} name = {this.props.name} comments = {this.state.comments} commentPosted = {this.commentPosted} token={this.props.token} weeklyAdded={this.weeklyAdded} weekly={this.state.weeklyList} role={this.props.user} myMovie={this.state.movieList} />
+                {this.state.updateActive ? <CommentTable commentPosted = {this.commentPosted} commentUpdate={this.state.commentUpdate} updateOff={this.updateOff} token={this.props.token} /> : null}
+                </Route>
+                <Route exact path="/movie"><MovieTable editComment = {this.commentUpdate} updateOn = {this.updateOn} name = {this.props.name} comments = {this.state.comments} commentPosted = {this.commentPosted} token={this.props.token} weeklyAdded={this.weeklyAdded} weekly={this.state.weeklyList} role={this.props.user} myMovie={this.state.movieList} />
+                {this.state.updateActive ? <CommentTable commentPosted = {this.commentPosted} commentUpdate={this.state.commentUpdate} updateOff={this.updateOff} token={this.props.token} /> : null}
+                </Route>
                 <Route exact path="/favorites"><FavoriteTable token={this.props.token}
                     role={this.props.user} weekly={this.state.weeklyList} /></Route>
             </Switch>

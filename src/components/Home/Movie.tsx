@@ -17,7 +17,8 @@ type stateVariable = {
     weeklyList: any,
     comments: any,
     updateActive: boolean,
-    commentUpdate: any
+    commentUpdate: any,
+    userComment: any
 }
 class Movie extends React.Component<Token, stateVariable>{
     constructor(props: Token) {
@@ -28,7 +29,8 @@ class Movie extends React.Component<Token, stateVariable>{
             weeklyList: {},
             comments: {},
             updateActive: false,
-            commentUpdate: {}
+            commentUpdate: {},
+            userComment:{}
         }
     }
 
@@ -95,6 +97,21 @@ class Movie extends React.Component<Token, stateVariable>{
             this.setState({
                 comments: comments
             })
+            //getting users
+            fetch(`${APIURL}/user/member`, {
+                method: "GET",
+                headers: new Headers({
+                    "Content-Type": "application/json",
+                    "Authorization": this.props.token
+                })
+            })
+                .then(member => member.json())
+                .then(memberJson => {
+                    this.setState({
+                        userComment: memberJson
+                    })
+                    console.log("User",this.state.userComment)
+                })
         })
     }
     componentDidMount = () => {
@@ -122,13 +139,13 @@ class Movie extends React.Component<Token, stateVariable>{
     render() {
         return (
             <Switch>
-                <Route exact path="/signup"><MovieTable editComment = {this.commentUpdate} updateOn = {this.updateOn} name = {this.props.name} comments = {this.state.comments} commentPosted = {this.commentPosted} token={this.props.token} weeklyAdded={this.weeklyAdded} weekly={this.state.weeklyList} role={this.props.user} myMovie={this.state.movieList} />
+                <Route exact path="/signup"><MovieTable userList={this.state.userComment} editComment = {this.commentUpdate} updateOn = {this.updateOn} name = {this.props.name} comments = {this.state.comments} commentPosted = {this.commentPosted} token={this.props.token} weeklyAdded={this.weeklyAdded} weekly={this.state.weeklyList} role={this.props.user} myMovie={this.state.movieList} />
                 {this.state.updateActive ? <CommentTable commentPosted = {this.commentPosted} commentUpdate={this.state.commentUpdate} updateOff={this.updateOff} token={this.props.token} /> : null}
                 </Route>
-                <Route exact path="/login"><MovieTable  editComment = {this.commentUpdate} updateOn = {this.updateOn} name = {this.props.name} comments = {this.state.comments} commentPosted = {this.commentPosted} token={this.props.token} weeklyAdded={this.weeklyAdded} weekly={this.state.weeklyList} role={this.props.user} myMovie={this.state.movieList} />
+                <Route exact path="/login"><MovieTable  userList={this.state.userComment} editComment = {this.commentUpdate} updateOn = {this.updateOn} name = {this.props.name} comments = {this.state.comments} commentPosted = {this.commentPosted} token={this.props.token} weeklyAdded={this.weeklyAdded} weekly={this.state.weeklyList} role={this.props.user} myMovie={this.state.movieList} />
                 {this.state.updateActive ? <CommentTable commentPosted = {this.commentPosted} commentUpdate={this.state.commentUpdate} updateOff={this.updateOff} token={this.props.token} /> : null}
                 </Route>
-                <Route exact path="/movie"><MovieTable editComment = {this.commentUpdate} updateOn = {this.updateOn} name = {this.props.name} comments = {this.state.comments} commentPosted = {this.commentPosted} token={this.props.token} weeklyAdded={this.weeklyAdded} weekly={this.state.weeklyList} role={this.props.user} myMovie={this.state.movieList} />
+                <Route exact path="/movie"><MovieTable userList={this.state.userComment} editComment = {this.commentUpdate} updateOn = {this.updateOn} name = {this.props.name} comments = {this.state.comments} commentPosted = {this.commentPosted} token={this.props.token} weeklyAdded={this.weeklyAdded} weekly={this.state.weeklyList} role={this.props.user} myMovie={this.state.movieList} />
                 {this.state.updateActive ? <CommentTable commentPosted = {this.commentPosted} commentUpdate={this.state.commentUpdate} updateOff={this.updateOff} token={this.props.token} /> : null}
                 </Route>
                 <Route exact path="/favorites"><FavoriteTable token={this.props.token}

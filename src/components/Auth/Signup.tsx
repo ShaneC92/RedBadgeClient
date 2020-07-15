@@ -97,7 +97,7 @@ class Signup extends React.Component<props, MyVariables>{
                   .then(data => data.json())
                   .then(json => {
                     console.log("This is data from singup.tsx", json);
-                    this.props.updateToken(json.sessionToken, this.state.userRole, json.data.firstName);
+                    this.props.updateToken(json.sessionToken, this.state.userRole, json.data.firstName,json.data.id);
                     this.props.updateLog("LOGOUT");
                     //this.props.updateToken(json.data.sessionToken);
                   })

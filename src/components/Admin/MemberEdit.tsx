@@ -1,6 +1,8 @@
 import React from "react";
 import { Modal, ModalHeader, ModalBody, Form, FormGroup, Label, Input, Button } from "reactstrap";
-import APIURL from '../helpers/environment';
+
+import APIURL from "../helpers/environment";
+
 
 type props = {
     memberUpdate: any,

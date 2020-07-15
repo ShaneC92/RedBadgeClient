@@ -15,7 +15,7 @@ class MovieTable extends React.Component<Token, {}>{
         console.log(this.props.weekly);
         let condition = this.props.myMovie;
         const deleteMovie = (movieID: number) => {
-            fetch(`${APIURL}favorites/${movieID}`, {
+            fetch(`${APIURL}/favorites/${movieID}`, {
                 method: "DELETE",
                 headers: new Headers({
                     "Content-Type": "application/json",

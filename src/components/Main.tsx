@@ -15,7 +15,8 @@ type states = {
     sessionToken: any,
     login: string,
     role: string,
-    firstName: string
+    firstName: string,
+    id: number
 
 }
 
@@ -26,7 +27,8 @@ class Main extends React.Component<{}, states>{
             sessionToken: "",
             login: "LOGIN",
             role: "",
-            firstName: "Ur-A-Critic"
+            firstName: "Ur-A-Critic",
+            id: 0
         }
     }
     // componentDidMount(){
@@ -44,12 +46,13 @@ class Main extends React.Component<{}, states>{
     //     }
     // }
     //updating a sessionToken
-    updateToken = (sessionToken: string, role: string, firstName: string) => {
+    updateToken = (sessionToken: string, role: string, firstName: string,id:number) => {
         localStorage.setItem("token", sessionToken);
         this.setState({
             sessionToken: sessionToken,
             role: role,
-            firstName: firstName
+            firstName: firstName,
+            id:id
         })
     }
 
@@ -58,6 +61,7 @@ class Main extends React.Component<{}, states>{
         this.setState({ sessionToken: ('') });
         this.setState({ login: "LOGIN" });
         this.setState({ firstName: "Ur-A-Critic" });
+        this.setState({id:0})
     }
 
     updateLog = (log: string) => {
@@ -71,12 +75,12 @@ class Main extends React.Component<{}, states>{
 
                 return (
 
-                    <Movie token={this.state.sessionToken} user={this.state.role} />
+                    <Movie token={this.state.sessionToken} user={this.state.role} name = {this.state.id}/>
                 )
             }
             else {
                 return (
-                    <Admin token={this.state.sessionToken} />
+                    <Admin token={this.state.sessionToken} name = {this.state.id}/>
                 )
             }
         }

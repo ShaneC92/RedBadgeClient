@@ -15,13 +15,6 @@ import DeleteIcon from '@material-ui/icons/Delete';
 import FavoriteIcon from '@material-ui/icons/Favorite';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
-import Table from '@material-ui/core/Table';
-import TableBody from '@material-ui/core/TableBody';
-import TableCell from '@material-ui/core/TableCell';
-import TableContainer from '@material-ui/core/TableContainer';
-import TableHead from '@material-ui/core/TableHead';
-import TableRow from '@material-ui/core/TableRow';
-import Paper from '@material-ui/core/Paper';
 import Footer from "../Footer";
 import EditIcon from '@material-ui/icons/Edit';
 
@@ -37,7 +30,8 @@ type Token = {
     commentPosted: any,
     name: number,
     editComment: any,
-    updateOn: any
+    updateOn: any,
+    userList: any
 }
 type stateVariable = {
     expanded: boolean,
@@ -88,36 +82,44 @@ class MovieTable extends React.Component<Token,stateVariable>{
                             })
                     }
                     const arrayList = this.props.comments.comment;
-                    if(arrayList){
+
+                    //user list
+                    const memberLists = this.props.userList.user;
+                    if(arrayList && memberLists){
                         return(
                             arrayList.map((comment:any,index:number)=>{
                                 if(comment.movieId === movieID){
-
                                     return(
-                                        <TableRow key = {index}>
-                                            <TableCell component = "th" scope = "row">
-                                            {comment.id}
-                                        </TableCell>
-                                        <TableCell>
-                                            {comment.comment}
-                                        </TableCell>
-                                        {comment.ownerId === this.props.name?<TableCell><IconButton><DeleteIcon 
-                                        onClick = {()=>{deleteComment(comment.id)}}
-                                        style = {{color:"black"}}aria-label="delete"/>
-                                        {/* <EditIcon onClick = {()=>{
-                                // this.props.editUpdateMember(member);
-                                // this.props.updateOn();
-                                             }}/> */}
-                                             
-                                </IconButton></TableCell>:null}
-                                {comment.ownerId === this.props.name?<TableCell><IconButton>
-                                             <EditIcon onClick = {()=>{
-                                                 console.log("comment object from movietable.tsx",comment);
-                                                 this.props.editComment(comment);
-                                                 this.props.updateOn();
-                                             }}/>
-                                </IconButton></TableCell>:null}
-                                    </TableRow>
+
+                                        memberLists.map((member:any,memberIndex:number)=>{
+                                            if(comment.ownerId === member.id){
+    
+                                                return(
+                                                    <dl style = {{color: "black", margin: "2px 2px 2px 8px"}}>
+                                                    <dt className = "moveLeft">
+                                                        {member.firstName}
+                                                    </dt>
+                                                   <dd className = "moveLeft">
+                                                       {comment.comment}
+                                                       {comment.ownerId === this.props.name?<IconButton className = "moveRight"><DeleteIcon 
+                                                    onClick = {()=>{deleteComment(comment.id)}}
+                                                    style = {{color:"black"}}aria-label="delete"/></IconButton>:null}
+                                                    {comment.ownerId === this.props.name?<IconButton className = "moveRight">
+                                                         <EditIcon onClick = {()=>{
+                                                             this.props.editComment(comment);
+                                                             this.props.updateOn();
+                                                         }} style = {{color: "black"}}/>
+                                            </IconButton>:null}
+                                                   </dd>
+                                                </dl>
+                                                )
+                                            }
+                                            else{
+                                                return(
+                                                    null
+                                                )
+                                            }
+                                        })
                                     )
                                 }
                                 else{
@@ -371,29 +373,20 @@ class MovieTable extends React.Component<Token,stateVariable>{
                                 <Collapse in = {this.state.expanded} timeout = "auto" unmountOnExit>
                                     <CardContent>
                                         <Typography paragraph>Comments</Typography>
-                                        <TableContainer component = {Paper}>
-                                            <Table size = "small" aria-label = "a dense table">
-                                                <TableHead>
-                                                    <TableRow>
-                                                        <TableCell style = {{width:"20%",margin:"auto"}}>ID</TableCell>
-                                                        <TableCell className = "tableCell">Comment</TableCell>
-                                                    </TableRow>
-                                                </TableHead>
-                                                <TableBody>
-                                                    {this.fetchComments(movie.id)}
-                                                </TableBody>
-                                            </Table>
+                                            <div style = {{backgroundColor:"white", height: "30vh",width: "25vw",overflow:"auto",
+                                            borderRadius:"10px"}}>
+                                                {this.fetchComments(movie.id)}
+                                            </div>
                                             <form className = "rootForComment">
                                             <input className="outlined-basic"type = "text" 
-                                                    style = {{width:"60%",margin:"2px"}}/>
-                                                        <IconButton edge="end" aria-label="comments" onClick = {()=>{
+                                                    style = {{width:"60%",margin:"2px",color:"black"}}/>
+                                                        <IconButton style = {{color:"white"}}edge="end" aria-label="comments" onClick = {()=>{
                                                             getInfo(movie.id);
                                                             this.postThisComment(getInfo(movie.id),movie.id);
                                                         }}>
                                                             <CommentIcon />
                                                         </IconButton>
                                             </form>
-                                        </TableContainer>
                                     </CardContent>
                                 </Collapse>
                             </CardActions>

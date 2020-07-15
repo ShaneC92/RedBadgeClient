@@ -186,10 +186,10 @@ class Main extends React.Component<Token, Movies>{
         return (
             <Switch>
                 <Route exact path="/login">
-                    <MovieTable editComment = {this.commentUpdate} updateOn = {this.updateOn} name = {this.props.name} comments = {this.state.comments} commentPosted = {this.commentPosted} token={this.props.token} weeklyAdded={this.weeklyMovie} weekly={this.state.weeklyList} myMovie={this.state.movieList} role="Admin" />
+                    <MovieTable userList={this.state.listOfUsers} editComment = {this.commentUpdate} updateOn = {this.updateOn} name = {this.props.name} comments = {this.state.comments} commentPosted = {this.commentPosted} token={this.props.token} weeklyAdded={this.weeklyMovie} weekly={this.state.weeklyList} myMovie={this.state.movieList} role="Admin" />
                 </Route>
                 <Route exact path="/movie">
-                    <MovieTable editComment = {this.commentUpdate} updateOn = {this.updateOn} name = {this.props.name} comments = {this.state.comments} commentPosted = {this.commentPosted} token={this.props.token} weeklyAdded={this.weeklyMovie} weekly={this.state.weeklyList} myMovie={this.state.movieList} role="Admin" />
+                    <MovieTable userList={this.state.listOfUsers} editComment = {this.commentUpdate} updateOn = {this.updateOn} name = {this.props.name} comments = {this.state.comments} commentPosted = {this.commentPosted} token={this.props.token} weeklyAdded={this.weeklyMovie} weekly={this.state.weeklyList} myMovie={this.state.movieList} role="Admin" />
                 </Route>
                 <Route exact path="/members">
                     <UserTable token={this.props.token} users={this.member} userList={this.state.listOfUsers} editUpdateMember={this.editUpdateMember} updateOn={this.updateOn} />

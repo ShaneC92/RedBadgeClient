@@ -82,3 +82,10 @@
 rootForComment{
         width: '25ch'
 }
+.moveLeft{
+    text-align: left;
+}
+.moveRight{
+    float: right;
+    padding-top: 0px !important;
+}
